@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 
@@ -33,6 +34,6 @@ public class UserController {
     @JsonView(User.FullView.class)
     @Transactional
     public User getById(@PathVariable("id") int id) {
-        return userRepository.findById(id).orElseThrow(IllegalStateException::new);
+        return userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }
