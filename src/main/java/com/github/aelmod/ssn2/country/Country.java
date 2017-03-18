@@ -1,9 +1,7 @@
-package com.example.country;
+package com.github.aelmod.ssn2.country;
 
-import com.example.user.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.github.aelmod.ssn2.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example;
+package com.github.aelmod.ssn2;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class DemoApplication {
+public class Ssn2Application {
 	@Autowired
 	private ObjectMapper objectMapper;
 
@@ -23,6 +23,6 @@ public class DemoApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(Ssn2Application.class, args);
 	}
 }

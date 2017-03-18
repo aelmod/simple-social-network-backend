@@ -1,6 +1,6 @@
-package com.example.user;
+package com.github.aelmod.ssn2.user;
 
-import com.example.country.Country;
+import com.github.aelmod.ssn2.country.Country;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;

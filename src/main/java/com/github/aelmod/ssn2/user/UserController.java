@@ -1,4 +1,4 @@
-package com.example.user;
+package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;

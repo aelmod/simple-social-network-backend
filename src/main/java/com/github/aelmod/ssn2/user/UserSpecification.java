@@ -1,4 +1,4 @@
-package com.example.user;
+package com.github.aelmod.ssn2.user;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
