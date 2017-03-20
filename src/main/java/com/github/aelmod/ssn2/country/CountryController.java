@@ -17,7 +17,6 @@ public class CountryController {
     }
 
     @GetMapping("")
-//    @JsonView(User.MinimalView.class)
     @JsonView(Country.WithUsers.class)
     public Iterable<Country> getAll() {
         return countryDao.findAll();

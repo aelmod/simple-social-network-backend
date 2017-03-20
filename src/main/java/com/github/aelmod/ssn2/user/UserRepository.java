@@ -13,11 +13,12 @@ import java.util.Optional;
  */
 @Repository
 public class UserRepository {
-    @Autowired
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
-    private UserDao userDao;
+    public UserRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public List<User> find(UserSpecification specification) {
         CriteriaQuery<User> userCriteriaQuery = specification.toCriteria(entityManager.getCriteriaBuilder());
@@ -25,16 +26,11 @@ public class UserRepository {
     }
 
     public Optional<User> findByPk(Integer id) {
-        return Optional.ofNullable(userDao.findOne(id));
+        return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
     public void save(User user) {
         entityManager.persist(user);
-    }
-
-    public void refresh(User user1) {
-//        entityManager.refresh(user1);
-        entityManager.merge(user1);
     }
 
     public Optional<User> findByUsername(String username) {
