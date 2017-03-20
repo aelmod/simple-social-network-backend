@@ -1,6 +1,6 @@
 package com.github.aelmod.ssn2.authentication;
 
-import com.github.aelmod.ssn2.security.SsnTokenAuthentication;
+import com.github.aelmod.ssn2.security.SsnJwtAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +23,6 @@ public class AuthenticationController {
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginPassword.getLogin(), loginPassword.getPassword())
         );
-        return ((SsnTokenAuthentication) authenticate).getToken();
+        return ((SsnJwtAuthentication) authenticate).getToken();
     }
 }

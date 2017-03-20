@@ -7,16 +7,15 @@ import javax.el.MethodNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by aelmod on 18.03.17.
- */
-public class SsnTokenAuthentication implements Authentication {
+public class SsnJwtAuthentication implements Authentication {
     private String token;
-    private Integer userId;
 
-    public SsnTokenAuthentication(String token, Integer userId) {
+    public SsnJwtAuthentication(String token) {
         this.token = token;
-        this.userId = userId;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     @Override
@@ -31,12 +30,12 @@ public class SsnTokenAuthentication implements Authentication {
 
     @Override
     public Object getDetails() {
-        return userId;
+        return token;
     }
 
     @Override
     public Object getPrincipal() {
-        return userId;
+        return token;
     }
 
     @Override
@@ -54,11 +53,4 @@ public class SsnTokenAuthentication implements Authentication {
         return this.getClass().getName();
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
 }

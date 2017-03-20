@@ -16,7 +16,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 @Component
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
@@ -24,15 +23,17 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     private Map<String, Integer> tokenUserIdMap = new HashMap<>();
 
     private final UserService userService;
+    private final JwtAuthHelper jwtAuthHelper;
 
     @Autowired
-    public UsernamePasswordAuthenticationProvider(UserService userService) {
+    public UsernamePasswordAuthenticationProvider(UserService userService, JwtAuthHelper jwtAuthHelper) {
         this.userService = userService;
+        this.jwtAuthHelper = jwtAuthHelper;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String token = UUID.randomUUID().toString();
+//        String token = UUID.randomUUID().toString();
         User userByUsername;
         try {
             userByUsername = userService.getUserByUsername(authentication.getPrincipal().toString());
@@ -42,8 +43,9 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
         if (Objects.equals(authentication.getPrincipal(), userByUsername.getUsername())
                 && bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), userByUsername.getPassword())) {
+            String token = jwtAuthHelper.createJwt(userByUsername.getId());
             tokenUserIdMap.put(token, userByUsername.getId());
-            return new SsnTokenAuthentication(token, userByUsername.getId());
+            return new SsnJwtAuthentication(token);
         }
         throw new BadCredentialsException("auth error");
     }

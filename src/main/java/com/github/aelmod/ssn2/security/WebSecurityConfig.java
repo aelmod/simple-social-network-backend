@@ -1,9 +1,9 @@
 package com.github.aelmod.ssn2.security;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,18 +17,19 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
-//    private Map<String, Integer> tokenUserIdMap = new HashMap<>();
+    private final JwtAuthHelper jwtAuthHelper;
 
     @Autowired
-    public WebSecurityConfig(UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider) {
+    public WebSecurityConfig(UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider, JwtAuthHelper jwtAuthHelper) {
         this.usernamePasswordAuthenticationProvider = usernamePasswordAuthenticationProvider;
+        this.jwtAuthHelper = jwtAuthHelper;
     }
 
     @Override
@@ -44,18 +45,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest()
                 .authenticated()
-            .and()
+                .and()
                 .formLogin().disable()
                 .logout()
                 .permitAll()
-            .and()
+                .and()
                 .addFilterBefore(new Filter() {
                     @Override
                     public void init(FilterConfig filterConfig) throws ServletException {
@@ -65,13 +66,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
                         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-                        String token = httpServletRequest.getParameter("X-Token");
-                        Map<String, Integer> tokenUserIdMap = usernamePasswordAuthenticationProvider.getTokenUserIdMap();
-                        if (tokenUserIdMap.containsKey(token)) {
-                            SecurityContextHolder.getContext().setAuthentication(new SsnTokenAuthentication(token, tokenUserIdMap.get(token)));
-                            filterChain.doFilter(servletRequest, servletResponse);
+                        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+
+                        String token = httpServletRequest.getHeader("X-Token");
+//
+                        if (Objects.isNull(token)) {
+                            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            return;
                         }
-                        ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_FORBIDDEN);
+
+                        try {
+                            jwtAuthHelper.verifyToken(token).getToken();
+                        }catch (JWTVerificationException e) {
+                            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            return;
+                        }
+
+                        SecurityContextHolder.getContext().setAuthentication(new SsnJwtAuthentication(token));
+                        filterChain.doFilter(servletRequest, servletResponse);
                     }
 
                     @Override
