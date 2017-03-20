@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class UserService {
