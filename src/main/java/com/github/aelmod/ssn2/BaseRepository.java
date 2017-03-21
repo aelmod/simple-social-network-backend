@@ -15,7 +15,11 @@ public abstract class BaseRepository<Entity, Pk> {
         this.entityManager = entityManager;
     }
 
-    public void save(Entity entity) {
+    public void remove(Entity entity) {
+        entityManager.remove(entity);
+    }
+
+    public void persist(Entity entity) {
         entityManager.persist(entity);
     }
 
