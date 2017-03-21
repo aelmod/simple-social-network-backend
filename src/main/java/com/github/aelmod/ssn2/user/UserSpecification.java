@@ -1,6 +1,9 @@
 package com.github.aelmod.ssn2.user;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,14 +11,6 @@ import java.util.Optional;
 public class UserSpecification {
     private Optional<String> oName = Optional.empty();
     private Optional<Integer> oCountryId = Optional.empty();
-
-    public UserSpecification() {
-    }
-
-    public UserSpecification(Optional<String> oName, Optional<Integer> oCountryId) {
-        this.oName = oName;
-        this.oCountryId = oCountryId;
-    }
 
     public void setName(String name) {
         this.oName = Optional.of(name);

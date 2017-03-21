@@ -2,45 +2,40 @@ package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
 
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("")
+    @GetMapping
     @JsonView(User.MinimalView.class)
-    @Transactional
-    public Iterable<User> getAll(
-            @RequestParam(required = false) Optional<String> name,
-            @RequestParam(required = false) Optional<Integer> countryId
-    ) {
-        UserSpecification specification = new UserSpecification(name, countryId);
-        return userRepository.find(specification);
+    public List<User> getAll(UserSpecification userSpecification) {
+        return userService.findBy(userSpecification);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{userId}")
     @JsonView(User.FullView.class)
-    @Transactional
-    public User getById(@PathVariable("id") int id) {
-        return userRepository.findByPk(id).orElseThrow(EntityNotFoundException::new);
+    public User getById(@PathVariable int userId) {
+        return userService.getByPk(userId);
     }
 
-    @JsonView(User.AllPrimitivesView.class)
     @GetMapping("{userId}/friends")
+    @JsonView(User.AllPrimitivesView.class)
     public Set<User> getFriends(@PathVariable Integer userId) {
-        return userRepository.findByPk(userId).orElseThrow(EntityNotFoundException::new).getFriends();
+        return userService.getByPk(userId).getFriends();
     }
 }

@@ -20,23 +20,24 @@ public class UserRepository {
         this.entityManager = entityManager;
     }
 
-    public List<User> find(UserSpecification specification) {
-        CriteriaQuery<User> userCriteriaQuery = specification.toCriteria(entityManager.getCriteriaBuilder());
-        return entityManager.createQuery(userCriteriaQuery).getResultList();
-    }
-
-    public Optional<User> findByPk(Integer id) {
-        return Optional.ofNullable(entityManager.find(User.class, id));
-    }
-
     public void save(User user) {
         entityManager.persist(user);
     }
 
-    public Optional<User> findByUsername(String username) {
+    public List<User> findBy(UserSpecification specification) {
+        CriteriaQuery<User> userCriteriaQuery = specification.toCriteria(entityManager.getCriteriaBuilder());
+        return entityManager.createQuery(userCriteriaQuery).getResultList();
+    }
+
+    public Optional<User> findOneByPk(Integer id) {
+        return Optional.ofNullable(entityManager.find(User.class, id));
+    }
+
+    public Optional<User> findOneByUsername(String username) {
         List<User> users = entityManager.createQuery("SELECT user from User as user where user.username=:username", User.class)
                 .setParameter("username", username)
                 .getResultList();
+
         if (users.isEmpty()) return Optional.empty();
         if (users.size() > 1) throw new IllegalStateException("username is unique property");
         return Optional.of(users.get(0));

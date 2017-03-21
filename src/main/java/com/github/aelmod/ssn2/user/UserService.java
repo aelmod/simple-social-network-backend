@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -16,9 +17,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
+    @Transactional(readOnly = true)
+    public List<User> findBy(UserSpecification userSpecification) {
+        return userRepository.findBy(userSpecification);
+    }
+
     @Transactional(readOnly = true)
     public User getByPk(Integer id) {
-        return userRepository.findByPk(id).orElseThrow(EntityNotFoundException::new);
+        return userRepository.findOneByPk(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByUsername(String username) {
+        return userRepository.findOneByUsername(username).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional
@@ -35,9 +47,5 @@ public class UserService {
     @Transactional
     public void save(User user) {
         userRepository.save(user);
-    }
-
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
     }
 }
