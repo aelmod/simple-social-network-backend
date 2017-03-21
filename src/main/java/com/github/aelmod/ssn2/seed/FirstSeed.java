@@ -33,18 +33,17 @@ public class FirstSeed {
         ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < USER_COUNT; i++) {
             User user = new User();
+            user.setName("user" + i);
             user.setUsername("user" + i);
             user.setPassword("$2a$10$omf3CW87qtL7tJnZ4GsZou65QjIra.YJmp/w3WOvapXTmB0gPFUWG");
             users.add(user);
             userService.save(user);
         }
         for (int i = 0; i < USER_COUNT; i++) {
-//            for (int j = 0; j < Math.random() * 50; j++) {
             User user = users.get(i);
             User friend = users.get((int) (Math.random() * USER_COUNT));
             if (Objects.equals(user.getId(), friend.getId())) continue;
             userService.makeFriends(user, friend);
-//            }
         }
     }
 }
