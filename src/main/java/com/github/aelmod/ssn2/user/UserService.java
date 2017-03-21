@@ -40,12 +40,12 @@ public class UserService {
         user2 = getByPk(user2.getId());
         user1.getFriends().add(user2);
         user2.getFriends().add(user1);
-        userRepository.save(user1);
-        userRepository.save(user2);
+        userRepository.persist(user1);
+        userRepository.persist(user2);
     }
 
     @Transactional
     public void save(User user) {
-        userRepository.save(user);
+        userRepository.persist(user);
     }
 }

@@ -11,16 +11,22 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "countries")
 public class Country implements Serializable {
+    Country() {
+    }
+
+    public Country(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(MinimumView.class)
-    private int id;
+    private Integer id;
     @JsonView(MinimumView.class)
     private String name;
     @OneToMany(mappedBy = "country")

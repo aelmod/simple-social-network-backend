@@ -1,5 +1,7 @@
 package com.github.aelmod.ssn2.user;
 
+import com.github.aelmod.ssn2.EntitySpecification;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserSpecification {
+public class UserSpecification implements EntitySpecification<User> {
     private Optional<String> oName = Optional.empty();
     private Optional<Integer> oCountryId = Optional.empty();
 
@@ -20,7 +22,8 @@ public class UserSpecification {
         this.oCountryId = Optional.of(oCountryId);
     }
 
-    public CriteriaQuery<User> toCriteria(CriteriaBuilder cb){
+    @Override
+    public CriteriaQuery<User> toCriteria(CriteriaBuilder cb) {
         CriteriaQuery<User> userCriteriaQuery = cb.createQuery(User.class);
         Root<User> userEntity = userCriteriaQuery.from(User.class);
         userCriteriaQuery.select(userEntity);
