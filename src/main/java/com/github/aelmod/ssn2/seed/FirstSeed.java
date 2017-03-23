@@ -42,7 +42,7 @@ public class FirstSeed {
             User user = new User();
             user.setName("user" + i);
             user.setUsername("user" + i);
-            user.setPassword("$2a$10$omf3CW87qtL7tJnZ4GsZou65QjIra.YJmp/w3WOvapXTmB0gPFUWG");
+            user.setPassword("pass1");
             user.setCountry(countries.get((int) (Math.random() * COUNTRY_COUNT)));
             users.add(user);
             userService.save(user);

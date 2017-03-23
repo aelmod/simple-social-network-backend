@@ -33,7 +33,6 @@ public class UserSpecification implements EntitySpecification<User> {
         oName.ifPresent(name -> predicateList.add(cb.equal(userEntity.get("name"), name)));
         oCountryId.ifPresent(countryId -> predicateList.add(cb.equal(userEntity.get("country").get("id"), countryId)));
 
-
         Predicate mainPredicate = cb.and(predicateList.toArray(new Predicate[predicateList.size()]));
 
         userCriteriaQuery.where(mainPredicate);

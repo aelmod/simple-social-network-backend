@@ -15,8 +15,12 @@ import javax.annotation.PostConstruct;
 @EnableTransactionManagement
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Ssn2Application {
+	private final ObjectMapper objectMapper;
+
 	@Autowired
-	private ObjectMapper objectMapper;
+	public Ssn2Application(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
 
 	@PostConstruct
 	private void init() {
