@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public void registerUser(@RequestBody UserRegisterForm user){
+    public void registerUser(@RequestBody @Valid UserRegisterForm user){
         userService.save(user.toUser());
     }
 }

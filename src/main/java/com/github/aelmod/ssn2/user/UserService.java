@@ -51,4 +51,9 @@ public class UserService {
         user.setPassword(encodedPassword);
         userRepository.persist(user);
     }
+
+    private boolean verify(String username) {
+        User userByUsername = getUserByUsername(username);
+        return !Objects.equals(username, userByUsername.getUsername());
+    }
 }

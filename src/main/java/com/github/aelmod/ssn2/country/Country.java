@@ -13,12 +13,10 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "countries")
 public class Country implements Serializable {
-    public Country() {
-    }
-
     public Country(String name) {
         this.name = name;
     }
