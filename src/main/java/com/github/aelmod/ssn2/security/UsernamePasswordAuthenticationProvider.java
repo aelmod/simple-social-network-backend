@@ -20,20 +20,17 @@ import java.util.Objects;
 @Component
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    private Map<String, Integer> tokenUserIdMap = new HashMap<>();
 
     private final UserService userService;
-    private final JwtAuthHelper jwtAuthHelper;
+    private final JwtAuthHelper jwtAuthHelper = new JwtAuthHelper();
 
     @Autowired
-    public UsernamePasswordAuthenticationProvider(UserService userService, JwtAuthHelper jwtAuthHelper) {
+    public UsernamePasswordAuthenticationProvider(UserService userService) {
         this.userService = userService;
-        this.jwtAuthHelper = jwtAuthHelper;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//        String token = UUID.randomUUID().toString();
         User userByUsername;
         try {
             userByUsername = userService.getUserByUsername(authentication.getPrincipal().toString());
@@ -44,7 +41,6 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         if (Objects.equals(authentication.getPrincipal(), userByUsername.getUsername())
                 && bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), userByUsername.getPassword())) {
             String token = jwtAuthHelper.createJwt(userByUsername.getId());
-            tokenUserIdMap.put(token, userByUsername.getId());
             return new SsnJwtAuthentication(token);
         }
         throw new BadCredentialsException("auth error");
@@ -53,9 +49,5 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     @Override
     public boolean supports(Class<?> aClass) {
         return aClass.equals(UsernamePasswordAuthenticationToken.class);
-    }
-
-    public Map<String, Integer> getTokenUserIdMap() {
-        return tokenUserIdMap;
     }
 }

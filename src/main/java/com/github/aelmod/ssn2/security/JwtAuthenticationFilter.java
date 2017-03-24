@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * Created by aelmod on 20.03.17.
- */
 public class JwtAuthenticationFilter implements Filter {
 
     private final JwtAuthHelper jwtAuthHelper = new JwtAuthHelper();

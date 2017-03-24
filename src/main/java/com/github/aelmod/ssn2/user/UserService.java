@@ -47,13 +47,20 @@ public class UserService {
 
     @Transactional
     public void save(User user) {
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        userRepository.persist(user);
+        if (!isUsernameExists(user.getUsername())) {
+            String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            userRepository.persist(user);
+        } else {
+            throw new UserAlreadyExistsException("Username already exists");
+        }
     }
 
-    private boolean verify(String username) {
-        User userByUsername = getUserByUsername(username);
-        return !Objects.equals(username, userByUsername.getUsername());
+    private boolean isUsernameExists(String username) {
+        try {
+            User userByUsername = getUserByUsername(username);
+            return Objects.equals(username, userByUsername.getUsername());
+        } catch (EntityNotFoundException ignored) {}
+        return false;
     }
 }
