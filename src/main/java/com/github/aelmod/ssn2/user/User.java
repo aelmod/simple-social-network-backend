@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.country.Country;
 import lombok.*;
 
@@ -40,15 +41,17 @@ public class User implements Serializable {
     private String email;
 
     @JsonView(AllPrimitivesView.class)
-    private int phone;
+    private String phone;
 
     @JsonView(FullView.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @JsonView(AllPrimitivesView.class)
-    private int cityId;
+    @JsonView(FullView.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @JsonView(AllPrimitivesView.class)
     private String address;
@@ -65,5 +68,5 @@ public class User implements Serializable {
 
     public interface AllPrimitivesView extends MinimalView {}
 
-    public interface FullView extends AllPrimitivesView, Country.MinimumView {}
+    public interface FullView extends AllPrimitivesView, Country.MinimumView, City.MinimumView {}
 }

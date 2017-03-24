@@ -8,9 +8,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by aelmod on 18.03.17.
- */
 @Repository
 public class UserRepository extends BaseRepository<User, Integer> {
 

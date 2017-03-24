@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
-
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

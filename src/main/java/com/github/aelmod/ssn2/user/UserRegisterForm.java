@@ -1,6 +1,6 @@
 package com.github.aelmod.ssn2.user;
 
-
+import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.country.Country;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class UserRegisterForm {
     private Date birthday;
     @NotNull
     private String email;
-    private int phone;
+    private String phone;
     @NotNull
     private int countryId;
     @NotNull
@@ -39,9 +39,28 @@ public class UserRegisterForm {
         return Objects.equals(password, confirmPassword);
     }
 
+    /**
+     * In frontend helper - Available phone number formats:
+     * +380630000000, 0630000000,
+     * 063-000-0000 x1234, 063-000-0000 ext1234,
+     * 063-000-0000, (063)-000-0000,
+     * 063.000.0000, 063 000 0000
+     */
+    @AssertTrue(message = "Invalid phone number format")
+    private boolean isValidPhoneNumber() {
+        if (phone.matches("[0-9*#+() -]{13}")) return true;
+        if (phone.matches("\\d{10}")) return true;
+        if (phone.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
+        if (phone.matches("\\d{3}[-.\\s]\\d{3}[-.\\s]\\d{4}")) return true;
+        if (phone.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+        return false;
+    }
+
     public User toUser() {
         Country country = new Country();
         country.setId(countryId);
-        return new User(null, name, username, password, birthday, email, phone, country, cityId, address, new HashSet<>());
+        City city = new City();
+        city.setId(cityId);
+        return new User(null, name, username, password, birthday, email, phone, country, city, address, new HashSet<>());
     }
 }
