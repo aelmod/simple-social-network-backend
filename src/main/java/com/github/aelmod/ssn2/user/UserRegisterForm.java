@@ -61,6 +61,6 @@ public class UserRegisterForm {
         country.setId(countryId);
         City city = new City();
         city.setId(cityId);
-        return new User(null, name, username, password, birthday, email, phone, country, city, address, new HashSet<>());
+        return new User(name, username, password, birthday, email, phone, country, city, address);
     }
 }

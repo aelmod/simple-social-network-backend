@@ -18,7 +18,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-
     @Transactional(readOnly = true)
     public List<User> findBy(UserSpecification userSpecification) {
         return userRepository.findBy(userSpecification);

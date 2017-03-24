@@ -16,9 +16,7 @@ public class JwtAuthenticationFilter implements Filter {
     private final JwtAuthHelper jwtAuthHelper = new JwtAuthHelper();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -45,7 +43,5 @@ public class JwtAuthenticationFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }

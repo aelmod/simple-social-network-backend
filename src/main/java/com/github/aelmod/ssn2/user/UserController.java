@@ -1,6 +1,8 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.microblog.MicroblogService;
+import com.github.aelmod.ssn2.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public void registerUser(@RequestBody @Valid UserRegisterForm user){
-        userService.save(user.toUser());
+    public void registerUser(@RequestBody @Valid UserRegisterForm registerForm) {
+        userService.save(registerForm.toUser());
     }
 }
