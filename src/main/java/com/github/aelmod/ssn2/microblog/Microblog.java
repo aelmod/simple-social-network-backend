@@ -39,5 +39,5 @@ public class Microblog {
 
     public interface WithUser extends MinimalView, User.MinimalView {}
 
-    public interface FullView extends MinimalView {}
+    public interface FullView extends WithUser {}
 }
