@@ -16,7 +16,7 @@ public class UserRegisterForm {
     @NotNull
     private String name;
     @NotNull
-    @Size(min = 6, max = 10)
+    @Size(min = 4, max = 12)
     private String username;
     @NotNull
     @Size(min = 8, max = 32)
@@ -31,6 +31,7 @@ public class UserRegisterForm {
     private int countryId;
     @NotNull
     private int cityId;
+    @NotNull
     private String address;
 
     @AssertTrue(message = "The passwords you provided do not match. Please correct and resubmit.")

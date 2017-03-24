@@ -1,7 +1,6 @@
-target/
-.mvn
-mvnw
-mvnw.cmd
+.gradle/
+/build/
+!gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -16,11 +15,3 @@ mvnw.cmd
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
