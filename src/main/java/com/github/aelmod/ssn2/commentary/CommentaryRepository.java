@@ -1,5 +1,14 @@
 package com.github.aelmod.ssn2.commentary;
 
-public class CommentaryRepository {
+import com.github.aelmod.ssn2.BaseRepository;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+
+@Repository
+public class CommentaryRepository extends BaseRepository<Commentary, Integer> {
+
+    public CommentaryRepository(EntityManager entityManager) {
+        super(entityManager);
+    }
 }

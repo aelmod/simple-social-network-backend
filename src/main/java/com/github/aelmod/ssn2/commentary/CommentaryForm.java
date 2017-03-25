@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.microblog;
+package com.github.aelmod.ssn2.commentary;
 
 import com.github.aelmod.ssn2.user.User;
 import lombok.Setter;
@@ -8,16 +8,14 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @Setter
-public class MicroblogForm {
+public class CommentaryForm {
     private String text;
-    private User user;
+    private User repliedToUser;
 
-    public Microblog toMicroblog() {
-        Microblog microblog = new Microblog();
-        microblog.setText(text);
-        microblog.setCreationTime(getDate());
-        microblog.setUser(user);
-        return microblog;
+    public Commentary toCommentary() {
+        Commentary commentary = new Commentary();
+        commentary.setCreationTime(getDate());
+        return commentary;
     }
 
     private Date getDate() {

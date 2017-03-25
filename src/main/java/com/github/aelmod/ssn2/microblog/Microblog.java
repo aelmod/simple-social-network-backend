@@ -26,7 +26,7 @@ public class Microblog {
     private String text;
     @JsonView(MinimalView.class)
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private Date creationDate;
+    private Date creationTime;
     @JsonView(WithUser.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
