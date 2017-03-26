@@ -13,6 +13,8 @@ public class UserControllerTest {
 
     private final UserEndpoint userEndpoint = new UserEndpoint();
 
+    private final int TEST_USER_ID = 1;
+
     @Test
     public void getAll() throws Exception {
         userEndpoint.getAll();
@@ -20,12 +22,12 @@ public class UserControllerTest {
 
     @Test
     public void getById() throws Exception {
-        userEndpoint.getById(1);
+        userEndpoint.getById(TEST_USER_ID);
     }
 
     @Test
     public void getFriends() throws Exception {
-        userEndpoint.getFriends(1);
+        userEndpoint.getFriends(TEST_USER_ID);
     }
 
     @Test

@@ -15,12 +15,14 @@ class JwtAuthHelper {
 
     private static final String SIGNING_KEY = "^@(Jopka)LolKekCheburek@^($%*$%(((";
 
+    public final String CLAIM_USER_ID_NAMING = "userId";
+
     String createJwt(Integer userId) {
         try {
             Algorithm algorithm = Algorithm.HMAC512(SIGNING_KEY);
             return JWT.create()
                     .withIssuer(ISSUER)
-                    .withClaim("userId", userId)
+                    .withClaim(CLAIM_USER_ID_NAMING, userId)
 //                    .withExpiresAt(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
                     .sign(algorithm);
         } catch (UnsupportedEncodingException | JWTCreationException exception) {

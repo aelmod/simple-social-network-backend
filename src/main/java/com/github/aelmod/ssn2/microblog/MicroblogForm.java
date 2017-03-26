@@ -3,6 +3,7 @@ package com.github.aelmod.ssn2.microblog;
 import com.github.aelmod.ssn2.user.User;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Setter
 public class MicroblogForm {
 
+    @NotNull
     private String text;
 
     private User user;
