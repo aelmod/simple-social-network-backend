@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.commentary;
+package com.github.aelmod.ssn2.microblog.commentary;
 
 import com.github.aelmod.ssn2.BaseRepository;
 import org.springframework.stereotype.Repository;

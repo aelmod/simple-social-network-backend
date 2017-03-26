@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 @Repository
 public class MicroblogRepository extends BaseRepository<Microblog, Integer> {
+
     public MicroblogRepository(EntityManager entityManager) {
         super(entityManager);
     }

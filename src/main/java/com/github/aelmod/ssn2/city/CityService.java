@@ -10,9 +10,10 @@ import java.util.Objects;
 
 @Service
 public class CityService {
-    @Autowired
+
     private final CityRepository cityRepository;
 
+    @Autowired
     public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }

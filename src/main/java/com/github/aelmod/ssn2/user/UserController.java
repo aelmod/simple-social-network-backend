@@ -1,8 +1,6 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.aelmod.ssn2.microblog.MicroblogService;
-import com.github.aelmod.ssn2.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +11,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
     private final UserService userService;
 
     @Autowired

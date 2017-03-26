@@ -15,22 +15,23 @@ import javax.annotation.PostConstruct;
 @EnableTransactionManagement
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Ssn2Application {
-	private final ObjectMapper objectMapper;
 
-	@Autowired
-	public Ssn2Application(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
+    private final ObjectMapper objectMapper;
 
-	@PostConstruct
-	private void init() {
-		objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
-		objectMapper.registerModule(
-				new Hibernate5Module().configure(
-						Hibernate5Module.Feature.FORCE_LAZY_LOADING, true));
-	}
+    @Autowired
+    public Ssn2Application(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(Ssn2Application.class, args);
-	}
+    @PostConstruct
+    private void init() {
+        objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
+        objectMapper.registerModule(
+                new Hibernate5Module().configure(
+                        Hibernate5Module.Feature.FORCE_LAZY_LOADING, true));
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(Ssn2Application.class, args);
+    }
 }

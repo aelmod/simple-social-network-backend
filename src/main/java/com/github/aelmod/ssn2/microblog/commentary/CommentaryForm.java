@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.commentary;
+package com.github.aelmod.ssn2.microblog.commentary;
 
 import com.github.aelmod.ssn2.microblog.Microblog;
 import lombok.Setter;
@@ -9,7 +9,9 @@ import java.util.Date;
 
 @Setter
 public class CommentaryForm {
+
     private String text;
+
     private Integer microblogId;
 
     public Commentary toCommentary() {

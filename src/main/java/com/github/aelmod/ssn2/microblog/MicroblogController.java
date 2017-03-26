@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/microblog")
 public class MicroblogController {
+
     private final MicroblogService microblogService;
 
     @Autowired

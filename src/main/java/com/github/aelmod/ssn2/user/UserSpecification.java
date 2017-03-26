@@ -11,8 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserSpecification implements EntitySpecification<User> {
+
     private Optional<String> oName = Optional.empty();
+
     private Optional<Integer> oCountryId = Optional.empty();
+
     private Optional<Integer> oCityId = Optional.empty();
 
     public void setName(String name) {

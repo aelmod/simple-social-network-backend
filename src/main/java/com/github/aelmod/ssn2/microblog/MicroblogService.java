@@ -9,9 +9,10 @@ import java.util.List;
 
 @Service
 public class MicroblogService {
-    @Autowired
+
     private final MicroblogRepository microblogRepository;
 
+    @Autowired
     public MicroblogService(MicroblogRepository microblogRepository) {
         this.microblogRepository = microblogRepository;
     }

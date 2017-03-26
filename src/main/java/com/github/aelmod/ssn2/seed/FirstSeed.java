@@ -21,14 +21,21 @@ import java.util.Objects;
  */
 @Component
 public class FirstSeed {
+
     private static final int USER_COUNT = 5;
+
     private static final int COUNTRY_COUNT = 3;
+
     private static final int CITY_COUNT = 3;
+
     private static final int MICROBLOGS_COUNT = 20;
 
     private final UserService userService;
+
     private final CountryService countryService;
+
     private final CityService cityService;
+
     private final MicroblogService microblogService;
 
     @Autowired

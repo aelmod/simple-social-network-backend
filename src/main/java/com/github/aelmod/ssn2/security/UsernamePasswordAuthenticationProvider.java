@@ -17,9 +17,11 @@ import java.util.Objects;
 
 @Component
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     private final UserService userService;
+
     private final JwtAuthHelper jwtAuthHelper = new JwtAuthHelper();
 
     @Autowired

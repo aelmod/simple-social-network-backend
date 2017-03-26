@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 @Repository
 public class CityRepository extends BaseRepository<City, Integer> {
+
     public CityRepository(EntityManager entityManager) {
         super(entityManager);
     }

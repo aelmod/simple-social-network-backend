@@ -1,7 +1,7 @@
 package com.github.aelmod.ssn2.country;
 
-import com.github.aelmod.ssn2.user.User;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "countries")
 public class Country implements Serializable {
+
     public Country(String name) {
         this.name = name;
     }
@@ -25,8 +26,10 @@ public class Country implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(MinimumView.class)
     private Integer id;
+
     @JsonView(MinimumView.class)
     private String name;
+
     @OneToMany(mappedBy = "country")
     @JsonView(WithUsers.class)
     private Set<User> users = new HashSet<>();

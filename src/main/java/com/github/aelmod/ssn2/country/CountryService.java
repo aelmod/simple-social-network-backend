@@ -10,6 +10,7 @@ import java.util.Objects;
 
 @Service
 public class CountryService {
+
     private final CountryRepository countryRepository;
 
     @Autowired
@@ -30,7 +31,8 @@ public class CountryService {
 
     @Transactional
     public void create(Country country) {
-        if (Objects.nonNull(country.getId())) throw new IllegalStateException("You cannot create country with specified id");
+        if (Objects.nonNull(country.getId()))
+            throw new IllegalStateException("You cannot create country with specified id");
         countryRepository.persist(country);
     }
 }

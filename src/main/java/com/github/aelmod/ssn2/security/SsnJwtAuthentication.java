@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SsnJwtAuthentication implements Authentication {
+
     private String token;
 
     public SsnJwtAuthentication(String token) {

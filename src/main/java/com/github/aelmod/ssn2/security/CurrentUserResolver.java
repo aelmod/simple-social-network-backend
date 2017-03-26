@@ -21,6 +21,7 @@ import java.util.Objects;
 public class CurrentUserResolver implements HandlerMethodArgumentResolver {
 
     private final RequestMappingHandlerAdapter adapter;
+
     private final UserService userService;
 
     @Autowired

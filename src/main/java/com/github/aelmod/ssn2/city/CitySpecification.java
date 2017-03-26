@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public class CitySpecification implements EntitySpecification<City> {
+
     @Override
     public CriteriaQuery<City> toCriteria(CriteriaBuilder cb) {
         CriteriaQuery<City> cityCriteriaQuery = cb.createQuery(City.class);

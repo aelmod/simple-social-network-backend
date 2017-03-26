@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.microblog.Microblog;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @ToString
 @NoArgsConstructor
@@ -21,6 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(MinimalView.class)
@@ -69,6 +69,7 @@ public class User implements Serializable {
     )
     private Set<User> friends = new HashSet<>();
 
+
     public User(String name, String username, String password, Date birthday, String email, String phone, Country country, City city, String address) {
         this.name = name;
         this.username = username;
@@ -80,6 +81,7 @@ public class User implements Serializable {
         this.city = city;
         this.address = address;
     }
+
 
     public interface MinimalView {}
 

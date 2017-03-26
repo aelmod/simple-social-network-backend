@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class BaseRepository<Entity, Pk> {
+
     protected final EntityManager entityManager;
+
     protected final Class<Entity> entityClass;
 
     public BaseRepository(EntityManager entityManager) {

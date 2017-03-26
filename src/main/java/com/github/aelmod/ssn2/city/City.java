@@ -17,16 +17,20 @@ import java.util.Set;
 @Entity
 @Table(name = "cities")
 public class City implements Serializable {
+
     public City(String name) {
         this.name = name;
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(MinimumView.class)
     private Integer id;
+
     @JsonView(MinimumView.class)
     private String name;
+
     @OneToMany(mappedBy = "city")
     @JsonView(WithUsers.class)
     private Set<User> users = new HashSet<>();

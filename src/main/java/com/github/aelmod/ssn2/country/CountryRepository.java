@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 
 @Repository
 public class CountryRepository extends BaseRepository<Country, Integer> {
+
     @Autowired
     public CountryRepository(EntityManager entityManager) {
         super(entityManager);

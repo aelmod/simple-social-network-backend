@@ -9,8 +9,11 @@ import java.util.Date;
 
 @Setter
 public class MicroblogForm {
+
     private String text;
+
     private User user;
+
 
     public Microblog toMicroblog() {
         Microblog microblog = new Microblog();
