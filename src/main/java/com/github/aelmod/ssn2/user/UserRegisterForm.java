@@ -5,9 +5,10 @@ import com.github.aelmod.ssn2.country.Country;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Objects;
 
 @Getter
@@ -41,7 +42,7 @@ public class UserRegisterForm {
 
     /**
      * In frontend helper - Available phone number formats:
-     * +380630000000, 0630000000,
+     * +380630000000, 0630000000
      * 063-000-0000 x1234, 063-000-0000 ext1234,
      * 063-000-0000, (063)-000-0000,
      * 063.000.0000, 063 000 0000

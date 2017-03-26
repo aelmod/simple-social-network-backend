@@ -1,6 +1,6 @@
 package com.github.aelmod.ssn2.commentary;
 
-import com.github.aelmod.ssn2.user.User;
+import com.github.aelmod.ssn2.microblog.Microblog;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,11 +10,15 @@ import java.util.Date;
 @Setter
 public class CommentaryForm {
     private String text;
-    private User repliedToUser;
+    private Integer microblogId;
 
     public Commentary toCommentary() {
         Commentary commentary = new Commentary();
+        Microblog microblog = new Microblog();
+        microblog.setId(microblogId);
         commentary.setCreationTime(getDate());
+        commentary.setText(text);
+        commentary.setMicroblog(microblog);
         return commentary;
     }
 

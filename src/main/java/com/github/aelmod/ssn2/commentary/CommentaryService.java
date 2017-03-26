@@ -12,5 +12,7 @@ public class CommentaryService {
         this.commentaryRepository = commentaryRepository;
     }
 
-
+    public void save(Commentary commentary) {
+        commentaryRepository.persist(commentary);
+    }
 }
