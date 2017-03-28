@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by aelmod on 18.03.17.
- */
 @Component
 public class FirstSeed {
 
@@ -28,7 +25,7 @@ public class FirstSeed {
 
     private static final int CITY_COUNT = 3;
 
-    private static final int MICROBLOGS_COUNT = 20;
+    private static final int MICROBLOG_COUNT = 20;
 
     private final UserService userService;
 
@@ -70,13 +67,13 @@ public class FirstSeed {
             user.setPassword("pass1");
             user.setCountry(countries.get((int) (Math.random() * COUNTRY_COUNT)));
             user.setCity(cities.get((int) (Math.random() * CITY_COUNT)));
-//            user.getMicroblogs().add(microblogs.get((int) (Math.random() * MICROBLOGS_COUNT)));
+//            user.getMicroblogs().add(microblogs.get((int) (Math.random() * MICROBLOG_COUNT)));
             users.add(user);
             userService.save(user);
         }
 
 //        List<Microblog> microblogs = new ArrayList<>();
-        for (int i = 0; i < MICROBLOGS_COUNT; i++) {
+        for (int i = 0; i < MICROBLOG_COUNT; i++) {
             Microblog microblog = new Microblog();
             microblog.setText("Hi" + i);
 //            microblogs.add(microblog);

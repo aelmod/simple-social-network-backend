@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2;
 
 import com.github.aelmod.ssn2.user.UserAlreadyExistsException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -16,7 +17,12 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public void userAlreadyExistsHandler(HttpServletResponse response, Exception e) {
+    public void userAlreadyExistsHandler(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public void badCredentialsHandler(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
 }

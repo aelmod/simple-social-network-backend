@@ -1,9 +1,11 @@
 package com.github.aelmod.ssn2.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.microblog.Microblog;
+import com.github.aelmod.ssn2.microblog.commentary.Commentary;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +38,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @JsonFormat(pattern = "dd.MM.yyyy")
     @JsonView(AllPrimitivesView.class)
     private Date birthday;
 
@@ -55,12 +58,15 @@ public class User implements Serializable {
     @JoinColumn(name = "city_id")
     private City city;
 
+    @JsonView(AllPrimitivesView.class)
+    private String address;
+
     @JsonView(FullView.class)
     @OneToMany(mappedBy = "user")
     private List<Microblog> microblogs = new ArrayList<>();
 
-    @JsonView(AllPrimitivesView.class)
-    private String address;
+    @OneToMany(mappedBy = "user")
+    private List<Commentary> commentaries = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "friends",
@@ -69,8 +75,11 @@ public class User implements Serializable {
     )
     private Set<User> friends = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Commentary> ignoreList = new HashSet<>();
 
-    public User(String name, String username, String password, Date birthday, String email, String phone, Country country, City city, String address) {
+    public User(String name, String username, String password, Date birthday, String email, String phone,
+                Country country, City city, String address) {
         this.name = name;
         this.username = username;
         this.password = password;

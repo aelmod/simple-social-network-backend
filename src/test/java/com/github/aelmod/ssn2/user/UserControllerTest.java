@@ -48,15 +48,19 @@ public class UserControllerTest {
 
     private UserRegisterForm getUserRegisterForm() {
         UserRegisterForm userRegisterForm = new UserRegisterForm();
-        userRegisterForm.setName("name1337");
-        userRegisterForm.setUsername("username1337");
-        userRegisterForm.setPassword("13371488");
-        userRegisterForm.setConfirmPassword("13371488");
-        userRegisterForm.setBirthday(new Date(9999999));
+        userRegisterForm.setName(getRandomString());
+        userRegisterForm.setUsername(getRandomString());
+        userRegisterForm.setPassword("1337_Pass");
+        userRegisterForm.setConfirmPassword("1337_Pass");
+        userRegisterForm.setBirthday(new Date());
         userRegisterForm.setAddress("address");
         userRegisterForm.setCityId(1);
         userRegisterForm.setCountryId(1);
         userRegisterForm.setEmail("test@mail.ru");
         return userRegisterForm;
+    }
+
+    private String getRandomString() {
+        return Long.toHexString(Double.doubleToLongBits(Math.random())).substring(0, 12);
     }
 }

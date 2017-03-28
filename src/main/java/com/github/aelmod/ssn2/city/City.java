@@ -22,7 +22,6 @@ public class City implements Serializable {
         this.name = name;
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(MinimumView.class)

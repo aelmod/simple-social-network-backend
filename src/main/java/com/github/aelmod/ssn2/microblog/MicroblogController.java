@@ -6,6 +6,8 @@ import com.github.aelmod.ssn2.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/microblog")
 public class MicroblogController {
@@ -18,7 +20,7 @@ public class MicroblogController {
     }
 
     @PostMapping("create")
-    public void create(@CurrentUser User user, @RequestBody MicroblogForm microblogForm) {
+    public void create(@CurrentUser User user, @RequestBody @Valid MicroblogForm microblogForm) {
         microblogForm.setUser(user);
         microblogService.create(microblogForm.toMicroblog());
     }

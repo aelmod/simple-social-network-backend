@@ -21,6 +21,7 @@ import java.util.Set;
 @Table(name = "microblogs")
 public class Microblog implements Serializable {
 
+    @JsonView(MinimalView.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
