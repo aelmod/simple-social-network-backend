@@ -46,6 +46,23 @@ public class UserService {
     }
 
     @Transactional
+    public void ignore(User ignorant, Integer ignoredUserId) {
+        User ignoredUser = getByPk(ignoredUserId);
+        if (Objects.equals(ignorant.getId(), ignoredUser.getId())) throw new IllegalStateException();
+        ignorant = getByPk(ignorant.getId());
+        ignorant.getIgnoreList().add(ignoredUser);
+        userRepository.persist(ignorant);
+    }
+
+    @Transactional
+    public void requestFriendship(User user, Integer requestedFriendshipUserId) {
+        User theoreticalFriend = getByPk(requestedFriendshipUserId);
+        user = getByPk(user.getId());
+        user.getFriendRequestsBucket().add(theoreticalFriend);
+        userRepository.persist(user);
+    }
+
+    @Transactional
     public void save(User user) {
         if (!isUsernameExists(user.getUsername())) {
             String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());

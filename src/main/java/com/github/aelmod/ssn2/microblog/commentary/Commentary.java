@@ -41,4 +41,6 @@ public class Commentary implements Serializable {
     private User user;
 
     public interface MinimalView {}
+
+    public interface WithUser extends MinimalView, User.MinimalView {}
 }

@@ -87,5 +87,14 @@ public class FirstSeed {
             if (Objects.equals(user.getId(), friend.getId())) continue;
             userService.makeFriends(user, friend);
         }
+
+        User user1 = new User();
+        user1.setId(3);
+        userService.ignore(user1, 2);
+
+
+        User user2 = new User();
+        user2.setId(2);
+        userService.requestFriendship(user2, 3);
     }
 }

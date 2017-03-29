@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,36 @@ public class UserController {
 
     @GetMapping("{userId}")
     @JsonView(User.FullView.class)
-    public User getById(@PathVariable int userId) {
-        return userService.getByPk(userId);
+    public User getById(@CurrentUser User currentUser, @PathVariable int userId) {
+        User userByPk = userService.getByPk(userId);
+        if (userByPk.getIgnoreList().contains(currentUser)) {
+            User user = new User();
+            user.setName(userByPk.getName());
+            return user;
+        }
+        return userByPk;
     }
 
     @GetMapping("{userId}/friends")
     @JsonView(User.AllPrimitivesView.class)
     public Set<User> getFriends(@PathVariable Integer userId) {
         return userService.getByPk(userId).getFriends();
+    }
+
+    @GetMapping("{ignoredUserId}/ignore")
+    public void addUserToIgnoreList(@CurrentUser User currentUser, @PathVariable Integer ignoredUserId) {
+        userService.ignore(currentUser, ignoredUserId);
+    }
+
+    @GetMapping("friends/requests")
+    @JsonView(User.MinimalView.class)
+    public Set<User> getFriendRequests(@CurrentUser User currentUser) {
+        return currentUser.getFriendRequestsBucket();
+    }
+
+    @GetMapping("{requestedFriendshipUserId}/requestFriendship")
+    public void requestFriendship(@CurrentUser User currentUser, @PathVariable Integer requestedFriendshipUserId) {
+        userService.requestFriendship(currentUser, requestedFriendshipUserId);
     }
 
     @PostMapping("register")

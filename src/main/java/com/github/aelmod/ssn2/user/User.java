@@ -75,8 +75,19 @@ public class User implements Serializable {
     )
     private Set<User> friends = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<Commentary> ignoreList = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "friend_requests_bucket",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "requested_friendship_user_id")}
+    )
+    private Set<User> friendRequestsBucket = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "ignore_list",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "ignored_user_id")}
+    )
+    private Set<User> ignoreList = new HashSet<>();
 
     public User(String name, String username, String password, Date birthday, String email, String phone,
                 Country country, City city, String address) {

@@ -21,7 +21,7 @@ public class CommentaryController {
     }
 
     @GetMapping
-    @JsonView(Commentary.MinimalView.class)
+    @JsonView(Commentary.WithUser.class)
     public List<Commentary> getAllCommentaries(CommentarySpecification commentarySpecification,
                                                @PathVariable int microblogId) {
         commentarySpecification.setMicroblogId(microblogId);
