@@ -51,13 +51,23 @@ public class UserController {
 
     @GetMapping("friends/requests")
     @JsonView(User.MinimalView.class)
-    public Set<User> getFriendRequests(@CurrentUser User currentUser) {
+    public Set<User> getFriendshipRequests(@CurrentUser User currentUser) {
         return currentUser.getFriendRequestsBucket();
     }
 
     @PostMapping
     public void requestFriendship(@CurrentUser User currentUser, @RequestBody Integer requestedFriendshipUserId) {
         userService.requestFriendship(currentUser, requestedFriendshipUserId);
+    }
+
+    @PutMapping
+    public void acceptFriendshipRequest(@RequestBody Integer userId) {
+
+    }
+
+    @DeleteMapping
+    public void rejectFriendshipRequest(@RequestBody Integer userId) {
+
     }
 
     @PostMapping("register")

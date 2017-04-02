@@ -101,6 +101,6 @@ public class FirstSeed {
         user2.setId(2);
         userService.requestFriendship(user2, 3);
 
-//        conversationService.startConversation(user2, user1.getId());
+//        conversationService.create(user2, user1.getId());
     }
 }

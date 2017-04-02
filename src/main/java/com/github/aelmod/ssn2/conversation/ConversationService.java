@@ -1,7 +1,6 @@
 package com.github.aelmod.ssn2.conversation;
 
 import com.github.aelmod.ssn2.user.User;
-import com.github.aelmod.ssn2.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +13,13 @@ public class ConversationService {
 
     private final ConversationRepository conversationRepository;
 
-    private final UserService userService;
-
     @Autowired
-    public ConversationService(ConversationRepository conversationRepository, UserService userService) {
+    public ConversationService(ConversationRepository conversationRepository) {
         this.conversationRepository = conversationRepository;
-        this.userService = userService;
     }
 
     @Transactional
-    public void startConversation(User conversationInitializer, List<Integer> invitedUserIds) {
+    public void create(User conversationInitializer, List<Integer> invitedUserIds) {
         Conversation conversation = new Conversation();
         List<User> users = conversation.getUsers();
         users.add(conversationInitializer);
@@ -35,12 +31,12 @@ public class ConversationService {
         conversationRepository.persist(conversation);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Conversation getByPk(Integer id) {
         return conversationRepository.findOneByPk(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Conversation> getBy(ConversationSpecification conversationSpecification) {
         return conversationRepository.findBy(conversationSpecification);
     }

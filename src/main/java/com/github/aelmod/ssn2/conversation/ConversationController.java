@@ -21,7 +21,7 @@ public class ConversationController {
 
     @PostMapping
     public void startConversation(@CurrentUser User conversationInitializer, @RequestBody List<Integer> invitedUserIds) {
-        conversationService.startConversation(conversationInitializer, invitedUserIds);
+        conversationService.create(conversationInitializer, invitedUserIds);
     }
 
     @JsonView(Conversation.MinimalView.class)

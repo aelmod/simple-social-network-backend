@@ -47,17 +47,17 @@ public class UserService {
 
     @Transactional
     public void ignore(User ignorant, Integer ignoredUserId) {
-        User ignoredUser = getByPk(ignoredUserId);
+        User ignoredUser = new User();
+        ignoredUser.setId(ignoredUserId);
         if (Objects.equals(ignorant.getId(), ignoredUser.getId())) throw new IllegalStateException();
-        ignorant = getByPk(ignorant.getId());
         ignorant.getIgnoreList().add(ignoredUser);
         userRepository.persist(ignorant);
     }
 
     @Transactional
     public void requestFriendship(User user, Integer requestedFriendshipUserId) {
-        User theoreticalFriend = getByPk(requestedFriendshipUserId);
-        user = getByPk(user.getId());
+        User theoreticalFriend = new User();
+        theoreticalFriend.setId(requestedFriendshipUserId);
         user.getFriendRequestsBucket().add(theoreticalFriend);
         userRepository.persist(user);
     }
