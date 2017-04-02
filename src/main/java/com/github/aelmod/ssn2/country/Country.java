@@ -30,8 +30,8 @@ public class Country implements Serializable {
     @JsonView(MinimumView.class)
     private String name;
 
-    @OneToMany(mappedBy = "country")
     @JsonView(WithUsers.class)
+    @OneToMany(mappedBy = "country")
     private Set<User> users = new HashSet<>();
 
     public interface WithUsers extends MinimumView, User.MinimalView {}

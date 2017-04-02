@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.chat.ConversationService;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private final ConversationService conversationService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, ConversationService conversationService) {
         this.userService = userService;
+        this.conversationService = conversationService;
     }
 
     @GetMapping
@@ -36,6 +40,11 @@ public class UserController {
             return user;
         }
         return userByPk;
+    }
+
+    @GetMapping("{invitedUserId}/startConversation")
+    public void startConversation(@CurrentUser User conversationInitializer, @PathVariable int invitedUserId) {
+        conversationService.startConversations(conversationInitializer, invitedUserId);
     }
 
     @GetMapping("{userId}/friends")
