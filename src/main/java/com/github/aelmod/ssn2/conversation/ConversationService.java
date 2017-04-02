@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.chat;
+package com.github.aelmod.ssn2.conversation;
 
 import com.github.aelmod.ssn2.user.User;
 import com.github.aelmod.ssn2.user.UserService;
@@ -23,12 +23,15 @@ public class ConversationService {
     }
 
     @Transactional
-    public void startConversations(User conversationInitializer, Integer invitedUserId) {
+    public void startConversations(User conversationInitializer, List<Integer> invitedUserIds) {
         Conversation conversation = new Conversation();
-        User invitedUser = userService.getByPk(invitedUserId);
         List<User> users = conversation.getUsers();
         users.add(conversationInitializer);
-        users.add(invitedUser);
+        for (Integer invitedUserId : invitedUserIds) {
+            User invitedUser = new User();
+            invitedUser.setId(invitedUserId);
+            users.add(invitedUser);
+        }
         conversationRepository.persist(conversation);
     }
 

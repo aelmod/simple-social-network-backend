@@ -1,6 +1,6 @@
-package com.github.aelmod.ssn2.chat.message;
+package com.github.aelmod.ssn2.conversation.message;
 
-import com.github.aelmod.ssn2.chat.Conversation;
+import com.github.aelmod.ssn2.conversation.Conversation;
 import com.github.aelmod.ssn2.user.User;
 import lombok.Getter;
 import lombok.Setter;

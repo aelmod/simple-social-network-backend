@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.chat.message;
+package com.github.aelmod.ssn2.conversation.message;
 
 import com.github.aelmod.ssn2.EntitySpecification;
 

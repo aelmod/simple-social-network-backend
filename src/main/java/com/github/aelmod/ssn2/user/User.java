@@ -2,9 +2,9 @@ package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.aelmod.ssn2.chat.Conversation;
-import com.github.aelmod.ssn2.chat.message.Message;
 import com.github.aelmod.ssn2.city.City;
+import com.github.aelmod.ssn2.conversation.Conversation;
+import com.github.aelmod.ssn2.conversation.message.Message;
 import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.microblog.commentary.Commentary;

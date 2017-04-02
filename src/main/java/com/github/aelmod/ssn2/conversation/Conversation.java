@@ -1,7 +1,7 @@
-package com.github.aelmod.ssn2.chat;
+package com.github.aelmod.ssn2.conversation;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.aelmod.ssn2.chat.message.Message;
+import com.github.aelmod.ssn2.conversation.message.Message;
 import com.github.aelmod.ssn2.user.User;
 import lombok.Getter;
 import lombok.Setter;

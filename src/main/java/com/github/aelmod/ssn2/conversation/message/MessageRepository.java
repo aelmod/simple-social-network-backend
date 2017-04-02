@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.chat;
+package com.github.aelmod.ssn2.conversation.message;
 
 import com.github.aelmod.ssn2.BaseRepository;
 import org.springframework.stereotype.Repository;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 
 @Repository
-public class ConversationRepository extends BaseRepository<Conversation, Integer> {
+public class MessageRepository extends BaseRepository<Message, Integer> {
 
-    public ConversationRepository(EntityManager entityManager) {
+    public MessageRepository(EntityManager entityManager) {
         super(entityManager);
     }
 }
