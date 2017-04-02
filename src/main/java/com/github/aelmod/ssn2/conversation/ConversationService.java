@@ -23,7 +23,7 @@ public class ConversationService {
     }
 
     @Transactional
-    public void startConversations(User conversationInitializer, List<Integer> invitedUserIds) {
+    public void startConversation(User conversationInitializer, List<Integer> invitedUserIds) {
         Conversation conversation = new Conversation();
         List<User> users = conversation.getUsers();
         users.add(conversationInitializer);
@@ -45,7 +45,7 @@ public class ConversationService {
         return conversationRepository.findBy(conversationSpecification);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Conversation> getAll(User user) {
         return user.getConversations();
     }
