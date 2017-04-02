@@ -53,5 +53,4 @@ public class SsnJwtAuthentication implements Authentication {
     public String getName() {
         return this.getClass().getName();
     }
-
 }

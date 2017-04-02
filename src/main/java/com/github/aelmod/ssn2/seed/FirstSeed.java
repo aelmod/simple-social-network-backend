@@ -1,5 +1,6 @@
 package com.github.aelmod.ssn2.seed;
 
+import com.github.aelmod.ssn2.chat.ConversationService;
 import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.city.CityService;
 import com.github.aelmod.ssn2.country.Country;
@@ -35,12 +36,15 @@ public class FirstSeed {
 
     private final MicroblogService microblogService;
 
+    private final ConversationService conversationService;
+
     @Autowired
-    public FirstSeed(UserService userService, CountryService countryService, CityService cityService, MicroblogService microblogService) {
+    public FirstSeed(UserService userService, CountryService countryService, CityService cityService, MicroblogService microblogService, ConversationService conversationService) {
         this.userService = userService;
         this.countryService = countryService;
         this.cityService = cityService;
         this.microblogService = microblogService;
+        this.conversationService = conversationService;
     }
 
     @PostConstruct
@@ -96,5 +100,7 @@ public class FirstSeed {
         User user2 = new User();
         user2.setId(2);
         userService.requestFriendship(user2, 3);
+
+//        conversationService.startConversations(user2, user1.getId());
     }
 }
