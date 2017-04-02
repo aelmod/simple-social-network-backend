@@ -9,9 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -30,11 +28,11 @@ public class Conversation implements Serializable {
 
     @JsonView(MinimalView.class)
     @ManyToMany
-    @JoinTable(name = "user_conversation_map",
+    @JoinTable(name = "conversation_user_map",
             joinColumns = {@JoinColumn(name = "conversation_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
     public interface MinimalView extends User.MinimalView {}
 

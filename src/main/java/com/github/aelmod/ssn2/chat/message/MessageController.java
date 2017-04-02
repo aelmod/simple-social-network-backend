@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/conversations/{conversationId}/messages")
 public class MessageController {
 
-
     private final MessageService messageService;
 
     @Autowired
@@ -23,14 +22,15 @@ public class MessageController {
 
     @JsonView(Message.FullView.class)
     @GetMapping
-    public DeferredResult<List<Message>> getMessages(@RequestParam(required = false) Integer offset) {
-        return messageService.getMessagesByOffset(offset);
+    public DeferredResult<List<Message>> getMessages(@RequestParam(required = false) Integer offset,
+                                                     @PathVariable Integer conversationId) {
+        return messageService.getMessagesByOffset(offset, conversationId);
     }
 
     @PostMapping
-    public void add(@CurrentUser User user, @RequestBody MessageForm messageForm, @PathVariable int conversationId) {
+    public void add(@CurrentUser User user, @RequestBody MessageForm messageForm, @PathVariable Integer conversationId) {
         messageForm.setConversationId(conversationId);
         messageForm.setUser(user);
-        messageService.addMessage(messageForm.toMessage());
+        messageService.addMessage(messageForm.toMessage(), conversationId);
     }
 }

@@ -25,8 +25,8 @@ public class MessageService {
     }
 
     @Transactional
-    private List<Message> getByPk(int index) {
-        List<Message> messages = messageRepository.findBy(new MessageSpecification());
+    private List<Message> getByPk(int index, Integer conversationId) {
+        List<Message> messages = messageRepository.findBy(new MessageSpecification(conversationId));
         if (messages.isEmpty()) {
             return Collections.emptyList();
         }
@@ -38,14 +38,14 @@ public class MessageService {
         return (index >= 0) && (index <= messages.size());
     }
 
-    public DeferredResult<List<Message>> getMessagesByOffset(Integer offset) {
+    public DeferredResult<List<Message>> getMessagesByOffset(Integer offset, Integer conversationId) {
         if (Objects.isNull(offset)) offset = 0;
         final DeferredResult<List<Message>> deferredResult = new DeferredResult<>(null, Collections.emptyList());
         chatRequests.put(deferredResult, offset);
 
         deferredResult.onCompletion(() -> chatRequests.remove(deferredResult));
 
-        List<Message> messages = getByPk(offset);
+        List<Message> messages = getByPk(offset, conversationId);
         if (!messages.isEmpty()) {
             deferredResult.setResult(messages);
         }
@@ -53,10 +53,10 @@ public class MessageService {
     }
 
     @Transactional
-    public void addMessage(Message message) {
+    public void addMessage(Message message, Integer conversationId) {
         messageRepository.persist(message);
         for (Map.Entry<DeferredResult<List<Message>>, Integer> entry : chatRequests.entrySet()) {
-            List<Message> messages = getByPk(entry.getValue());
+            List<Message> messages = getByPk(entry.getValue(), conversationId);
             entry.getKey().setResult(messages);
         }
     }

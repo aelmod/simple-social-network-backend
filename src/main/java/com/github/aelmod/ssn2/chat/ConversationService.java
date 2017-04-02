@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ConversationService {
@@ -27,7 +26,7 @@ public class ConversationService {
     public void startConversations(User conversationInitializer, Integer invitedUserId) {
         Conversation conversation = new Conversation();
         User invitedUser = userService.getByPk(invitedUserId);
-        Set<User> users = conversation.getUsers();
+        List<User> users = conversation.getUsers();
         users.add(conversationInitializer);
         users.add(invitedUser);
         conversationRepository.persist(conversation);
@@ -41,5 +40,10 @@ public class ConversationService {
     @Transactional
     public List<Conversation> getBy(ConversationSpecification conversationSpecification) {
         return conversationRepository.findBy(conversationSpecification);
+    }
+
+    @Transactional
+    public List<Conversation> getAll(User user) {
+        return user.getConversations();
     }
 }

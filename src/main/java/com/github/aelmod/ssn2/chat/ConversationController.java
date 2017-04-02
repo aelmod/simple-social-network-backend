@@ -21,15 +21,9 @@ public class ConversationController {
         this.conversationService = conversationService;
     }
 
-//    @JsonView(Conversation.FullView.class)
-//    @GetMapping("{conversationId}")
-//    public Conversation getById(@PathVariable int conversationId) {
-//        return conversationService.getByPk(conversationId);
-//    }
-
     @JsonView(Conversation.MinimalView.class)
     @GetMapping
-    public List<Conversation> getAll(@CurrentUser User user) {
-        return conversationService.getBy(new ConversationSpecification(user.getId()));
+    public List<Conversation> getAllUserConversation(@CurrentUser User user) {
+        return conversationService.getAll(user);
     }
 }

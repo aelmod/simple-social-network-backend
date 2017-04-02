@@ -2,6 +2,7 @@ package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.chat.Conversation;
 import com.github.aelmod.ssn2.chat.message.Message;
 import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.country.Country;
@@ -64,6 +65,13 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user")
     private List<Message> messages = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "conversation_user_map",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "conversation_id")}
+    )
+    private List<Conversation> conversations = new ArrayList<>();
 
     @JsonView(FullView.class)
     @OneToMany(mappedBy = "user")
