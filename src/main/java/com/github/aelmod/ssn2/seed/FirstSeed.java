@@ -1,8 +1,8 @@
 package com.github.aelmod.ssn2.seed;
 
-import com.github.aelmod.ssn2.chat.ConversationService;
 import com.github.aelmod.ssn2.city.City;
 import com.github.aelmod.ssn2.city.CityService;
+import com.github.aelmod.ssn2.conversation.ConversationService;
 import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.country.CountryService;
 import com.github.aelmod.ssn2.microblog.Microblog;

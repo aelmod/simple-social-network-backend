@@ -1,12 +1,10 @@
-package com.github.aelmod.ssn2.chat;
+package com.github.aelmod.ssn2.conversation;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import com.github.aelmod.ssn2.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +17,11 @@ public class ConversationController {
     @Autowired
     public ConversationController(ConversationService conversationService) {
         this.conversationService = conversationService;
+    }
+
+    @PostMapping
+    public void startConversation(@CurrentUser User conversationInitializer, @RequestBody List<Integer> invitedUserIds) {
+        conversationService.startConversations(conversationInitializer, invitedUserIds);
     }
 
     @JsonView(Conversation.MinimalView.class)

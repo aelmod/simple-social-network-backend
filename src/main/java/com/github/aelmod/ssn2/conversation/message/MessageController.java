@@ -1,11 +1,10 @@
-package com.github.aelmod.ssn2.chat.message;
+package com.github.aelmod.ssn2.conversation.message;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import com.github.aelmod.ssn2.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.List;
 
@@ -22,15 +21,14 @@ public class MessageController {
 
     @JsonView(Message.FullView.class)
     @GetMapping
-    public DeferredResult<List<Message>> getMessages(@RequestParam(required = false) Integer offset,
-                                                     @PathVariable Integer conversationId) {
-        return messageService.getMessagesByOffset(offset, conversationId);
+    public List<Message> getMessages(@PathVariable Integer conversationId) {
+        return messageService.getBy(new MessageSpecification(conversationId));
     }
 
     @PostMapping
     public void add(@CurrentUser User user, @RequestBody MessageForm messageForm, @PathVariable Integer conversationId) {
         messageForm.setConversationId(conversationId);
         messageForm.setUser(user);
-        messageService.addMessage(messageForm.toMessage(), conversationId);
+        messageService.addMessage(messageForm.toMessage());
     }
 }
