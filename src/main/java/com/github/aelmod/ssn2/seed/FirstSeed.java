@@ -9,6 +9,7 @@ import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.microblog.MicroblogService;
 import com.github.aelmod.ssn2.user.User;
 import com.github.aelmod.ssn2.user.UserService;
+import com.github.aelmod.ssn2.user.friend.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,13 +39,16 @@ public class FirstSeed {
 
     private final ConversationService conversationService;
 
+    private final FriendService friendService;
+
     @Autowired
-    public FirstSeed(UserService userService, CountryService countryService, CityService cityService, MicroblogService microblogService, ConversationService conversationService) {
+    public FirstSeed(UserService userService, CountryService countryService, CityService cityService, MicroblogService microblogService, ConversationService conversationService, FriendService friendService) {
         this.userService = userService;
         this.countryService = countryService;
         this.cityService = cityService;
         this.microblogService = microblogService;
         this.conversationService = conversationService;
+        this.friendService = friendService;
     }
 
     @PostConstruct
@@ -89,7 +93,7 @@ public class FirstSeed {
             User user = users.get(i);
             User friend = users.get((int) (Math.random() * USER_COUNT));
             if (Objects.equals(user.getId(), friend.getId())) continue;
-            userService.makeFriends(user, friend);
+            friendService.makeFriends(user, friend);
         }
 
         User user1 = new User();
@@ -99,7 +103,7 @@ public class FirstSeed {
 
         User user2 = new User();
         user2.setId(2);
-        userService.requestFriendship(user2, 3);
+        friendService.requestFriendship(user2, 3);
 
 //        conversationService.create(user2, user1.getId());
     }

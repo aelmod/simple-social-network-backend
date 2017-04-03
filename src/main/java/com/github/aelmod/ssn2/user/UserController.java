@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -38,36 +37,9 @@ public class UserController {
         return userByPk;
     }
 
-    @GetMapping("{userId}/friends")
-    @JsonView(User.AllPrimitivesView.class)
-    public Set<User> getFriends(@PathVariable Integer userId) {
-        return userService.getByPk(userId).getFriends();
-    }
-
     @PutMapping("{ignoredUserId}/ignore")
     public void addUserToIgnoreList(@CurrentUser User currentUser, @PathVariable Integer ignoredUserId) {
         userService.ignore(currentUser, ignoredUserId);
-    }
-
-    @GetMapping("friends/requests")
-    @JsonView(User.MinimalView.class)
-    public Set<User> getFriendshipRequests(@CurrentUser User currentUser) {
-        return currentUser.getFriendRequestsBucket();
-    }
-
-    @PostMapping
-    public void requestFriendship(@CurrentUser User currentUser, @RequestBody Integer requestedFriendshipUserId) {
-        userService.requestFriendship(currentUser, requestedFriendshipUserId);
-    }
-
-    @PutMapping
-    public void acceptFriendshipRequest(@RequestBody Integer userId) {
-
-    }
-
-    @DeleteMapping
-    public void rejectFriendshipRequest(@RequestBody Integer userId) {
-
     }
 
     @PostMapping("register")
