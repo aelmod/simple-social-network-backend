@@ -17,7 +17,7 @@ public class UserRepository extends BaseRepository<User, Integer> {
     }
 
     public Optional<User> findOneByUsername(String username) {
-        List<User> users = entityManager.createQuery("SELECT user from User as user where user.username=:username", User.class)
+        List<User> users = entityManager.createQuery("SELECT user FROM User AS user WHERE user.username=:username", User.class)
                 .setParameter("username", username)
                 .getResultList();
 

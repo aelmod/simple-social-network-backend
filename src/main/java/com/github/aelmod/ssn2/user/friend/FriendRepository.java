@@ -16,7 +16,7 @@ public class FriendRepository extends BaseRepository<User, Integer> {
     }
 
     public List<User> getIncomingFriendshipRequests(Integer userId) {
-        String jpql = "select user from User as user join user.friendRequestsBucket friendRequestsBucket where friendRequestsBucket.id=:userId";
+        String jpql = "SELECT user FROM User AS user JOIN user.friendRequestsBucket friendRequestsBucket WHERE friendRequestsBucket.id=:userId";
         List<User> requestedFriendshipUsers = entityManager.createQuery(jpql, User.class)
                 .setParameter("userId", userId)
                 .getResultList();
