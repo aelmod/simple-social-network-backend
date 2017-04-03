@@ -41,8 +41,6 @@ public class FriendService {
     public void requestFriendship(User user, Integer requestedFriendshipUserId) {
         User theoreticalFriend = userService.getByPk(requestedFriendshipUserId);
         user = userService.getByPk(user.getId());
-//        User theoreticalFriend = new User();
-//        theoreticalFriend.setId(requestedFriendshipUserId);
         user.getFriendRequestsBucket().add(theoreticalFriend);
         userRepository.persist(user);
     }
@@ -52,8 +50,6 @@ public class FriendService {
         user.getFriendRequestsBucket().removeIf(theoreticalFriend ->
                 Objects.equals(theoreticalFriend.getId(), theoreticalFriendId));
         User theoreticalFriend = userService.getByPk(theoreticalFriendId);
-//        User theoreticalFriend = new User();
-//        theoreticalFriend.setId(theoreticalFriendId);
         makeFriends(user, theoreticalFriend);
         userRepository.persist(user);
     }
