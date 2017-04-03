@@ -1,12 +1,15 @@
 package com.github.aelmod.ssn2.conversation.message;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.conversation.Conversation;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import com.github.aelmod.ssn2.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/conversations/{conversationId}/messages")
@@ -21,14 +24,25 @@ public class MessageController {
 
     @JsonView(Message.FullView.class)
     @GetMapping
-    public List<Message> getMessages(@PathVariable Integer conversationId) {
+    public List<Message> getMessages(@CurrentUser User user, @PathVariable Integer conversationId) {
+        verifyPresenceUserInConversation(user, conversationId);
         return messageService.getBy(new MessageSpecification(conversationId));
     }
 
     @PostMapping
     public void add(@CurrentUser User user, @RequestBody MessageForm messageForm, @PathVariable Integer conversationId) {
+        verifyPresenceUserInConversation(user, conversationId);
         messageForm.setConversationId(conversationId);
         messageForm.setUser(user);
         messageService.addMessage(messageForm.toMessage());
+    }
+
+    private void verifyPresenceUserInConversation(@CurrentUser User user, @PathVariable Integer conversationId) {
+        List<Conversation> currentUserConversations = user.getConversations();
+        if (currentUserConversations.size() == 0) throw new EntityNotFoundException();
+        user.getConversations().forEach(conversation -> {
+            if (!Objects.equals(conversation.getId(), conversationId))
+                throw new EntityNotFoundException();
+        });
     }
 }
