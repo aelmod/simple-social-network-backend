@@ -38,8 +38,6 @@ public class UserService {
     public void ignore(User ignorant, Integer ignoredUserId) {
         User ignoredUser = getByPk(ignoredUserId);
         ignorant = getByPk(ignorant.getId());
-//        User ignoredUser = new User();
-//        ignoredUser.setId(ignoredUserId);
         if (Objects.equals(ignorant.getId(), ignoredUser.getId())) throw new IllegalStateException();
         ignorant.getIgnoreList().add(ignoredUser);
         userRepository.persist(ignorant);

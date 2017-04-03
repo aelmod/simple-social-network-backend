@@ -8,6 +8,7 @@ import com.github.aelmod.ssn2.conversation.message.Message;
 import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.microblog.commentary.Commentary;
+import com.github.aelmod.ssn2.user.settings.UserSettings;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -100,6 +101,9 @@ public class User implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "ignored_user_id")}
     )
     private Set<User> ignoreList = new HashSet<>();
+
+    @OneToOne
+    private UserSettings userSettings;
 
     public User(String name, String username, String password, Date birthday, String email, String phone,
                 Country country, City city, String address) {
