@@ -14,7 +14,6 @@ public class MicroblogForm {
 
     private User user;
 
-
     public Microblog toMicroblog() {
         Microblog microblog = new Microblog();
         microblog.setText(text);
