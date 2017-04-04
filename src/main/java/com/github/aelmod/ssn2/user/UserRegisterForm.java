@@ -47,12 +47,10 @@ public class UserRegisterForm {
     @NotNull
     private String address;
 
-
     @AssertTrue(message = "The passwords you provided do not match. Please correct and resubmit.")
     private boolean isValidConfirmedPassword() {
         return Objects.equals(password, confirmPassword);
     }
-
 
     /**
      * In frontend helper - Available phone number formats:
@@ -71,7 +69,6 @@ public class UserRegisterForm {
         if (phone.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
         return false;
     }
-
 
     public User toUser() {
         Country country = new Country();

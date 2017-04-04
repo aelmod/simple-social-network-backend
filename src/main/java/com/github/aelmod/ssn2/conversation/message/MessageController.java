@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,7 +31,8 @@ public class MessageController {
     }
 
     @PostMapping
-    public void add(@CurrentUser User user, @RequestBody MessageForm messageForm, @PathVariable Integer conversationId) {
+    public void add(@CurrentUser User user, @RequestBody @Valid MessageForm messageForm,
+                    @PathVariable Integer conversationId) {
         verifyPresenceUserInConversation(user, conversationId);
         messageForm.setConversationId(conversationId);
         messageForm.setUser(user);
