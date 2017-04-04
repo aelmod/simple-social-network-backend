@@ -38,7 +38,8 @@ public class UserService {
     public void ignore(User ignorant, Integer ignoredUserId) {
         User ignoredUser = getByPk(ignoredUserId);
         ignorant = getByPk(ignorant.getId());
-        if (Objects.equals(ignorant.getId(), ignoredUser.getId())) throw new IllegalStateException();
+        if (Objects.equals(ignorant.getId(), ignoredUser.getId()))
+            throw new UserCommonException("You can't ignore yourself");
         ignorant.getIgnoreList().add(ignoredUser);
         userRepository.persist(ignorant);
     }
@@ -58,7 +59,7 @@ public class UserService {
         try {
             User userByUsername = getUserByUsername(username);
             return Objects.equals(username, userByUsername.getUsername());
-        } catch (EntityNotFoundException ignored) {}
+        } catch (EntityNotFoundException ignored) {/* Exception handling not need for this situation */}
         return false;
     }
 }
