@@ -102,7 +102,7 @@ public class User implements Serializable {
     )
     private Set<User> ignoreList = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private UserSettings userSettings;
 
     public User(String name, String username, String password, Date birthday, String email, String phone,
