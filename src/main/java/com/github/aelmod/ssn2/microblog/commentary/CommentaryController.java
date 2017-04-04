@@ -49,7 +49,7 @@ public class CommentaryController {
     private void checkCommentaryPrivacySettings(@CurrentUser User user, @PathVariable int microblogId) {
         Microblog rootMicroblog = microblogService.getByPk(microblogId);
         User microblogAuthor = rootMicroblog.getUser();
-        if (microblogAuthor.getUserSettings().getPrivacySettings() == UserSettings.CommentaryPrivacy.ONLY_FRIENDS) {
+        if (microblogAuthor.getUserSettings().getCommentaryPrivacy() == UserSettings.CommentaryPrivacy.ONLY_FRIENDS) {
             Set<User> friends = microblogAuthor.getFriends();
             friends.forEach(friend -> {
                 if (!Objects.equals(friend.getId(), user.getId()))
