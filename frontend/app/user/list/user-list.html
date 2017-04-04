@@ -1,0 +1,6 @@
+<table class="table table-stripped">
+    <tr ng-repeat="user in users">
+        <td><a ui-sref="user-view({userId: user.id})">{{user.username}}</a></td>
+        <td>{{user.name}}</td>
+    </tr>
+</table>
