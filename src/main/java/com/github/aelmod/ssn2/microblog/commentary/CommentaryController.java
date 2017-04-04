@@ -5,7 +5,7 @@ import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.microblog.MicroblogService;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import com.github.aelmod.ssn2.user.User;
-import com.github.aelmod.ssn2.user.settings.PrivacyException;
+import com.github.aelmod.ssn2.user.settings.NotRelevantUserPrivacySettingsException;
 import com.github.aelmod.ssn2.user.settings.UserSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +53,7 @@ public class CommentaryController {
             Set<User> friends = microblogAuthor.getFriends();
             friends.forEach(friend -> {
                 if (!Objects.equals(friend.getId(), user.getId()))
-                    throw new PrivacyException("User allowed to comment on his microblog only to friends");
+                    throw new NotRelevantUserPrivacySettingsException("User allowed to comment on his microblog only to friends");
             });
         }
     }

@@ -39,7 +39,7 @@ public class UserService {
         User ignoredUser = getByPk(ignoredUserId);
         ignorant = getByPk(ignorant.getId());
         if (Objects.equals(ignorant.getId(), ignoredUser.getId()))
-            throw new UserCommonException("You can't ignore yourself");
+            throw new BadUserBehaviorException("You can't ignore yourself");
         ignorant.getIgnoreList().add(ignoredUser);
         userRepository.persist(ignorant);
     }

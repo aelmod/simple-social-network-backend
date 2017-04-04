@@ -1,7 +1,7 @@
 package com.github.aelmod.ssn2.user.friend;
 
+import com.github.aelmod.ssn2.user.BadUserBehaviorException;
 import com.github.aelmod.ssn2.user.User;
-import com.github.aelmod.ssn2.user.UserCommonException;
 import com.github.aelmod.ssn2.user.UserRepository;
 import com.github.aelmod.ssn2.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class FriendService {
     @Transactional
     public void makeFriends(User user1, User user2) {
         if (Objects.equals(user1.getId(), user2.getId()))
-            throw new UserCommonException("You can not add yourself to friends");
+            throw new BadUserBehaviorException("You can not add yourself to friends");
         user1 = userService.getByPk(user1.getId());
         user2 = userService.getByPk(user2.getId());
         user1.getFriends().add(user2);

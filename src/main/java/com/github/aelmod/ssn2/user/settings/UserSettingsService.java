@@ -26,7 +26,7 @@ public class UserSettingsService {
 
     @Transactional
     public UserSettings getByPk(Integer id) {
-        return userSettingsRepository.findOneByPk(id).orElseThrow(PrivacyException::new);
+        return userSettingsRepository.findOneByPk(id).orElseThrow(NotRelevantUserPrivacySettingsException::new);
     }
 
     @Transactional
