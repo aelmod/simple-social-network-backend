@@ -1,11 +1,12 @@
 package com.github.aelmod.ssn2.statistic;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/statistic")
@@ -18,8 +19,8 @@ public class StatisticController {
         this.statisticRepository = statisticRepository;
     }
 
-    @GetMapping
-    public long get() {
-        return statisticRepository.getMessagesFromCertainTime(LocalDate.now());
+    @PostMapping
+    public List<Long> getStatisticPeer(Date date) {
+        return statisticRepository.getMessagesFromCertainTime(date);
     }
 }

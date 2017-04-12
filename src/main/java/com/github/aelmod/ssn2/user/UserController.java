@@ -37,6 +37,11 @@ public class UserController {
         return userByPk;
     }
 
+    @GetMapping("myPage")
+    public Integer getCurrentUserId(@CurrentUser User user) {
+        return user.getId();
+    }
+
     @PutMapping("{ignoredUserId}/ignore")
     public void addUserToIgnoreList(@CurrentUser User currentUser, @PathVariable Integer ignoredUserId) {
         userService.ignore(currentUser, ignoredUserId);

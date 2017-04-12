@@ -3,6 +3,6 @@ angular
     .controller('HomeController', HomeController);
 
 
-function HomeController($scope, $http) {
-    // if ($isEmpty(localStorage.token))
+function HomeController($scope, $http, $location) {
+    if (localStorage.token === undefined) $location.path('/login');
 }

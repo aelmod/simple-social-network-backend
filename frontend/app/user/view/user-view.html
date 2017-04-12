@@ -1,5 +1,134 @@
-<ul>
-    <li ng-repeat="(key, val) in user">
-        {{key}}: {{val}}
-    </li>
-</ul>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/public/style/userPage.css">
+    <link rel="stylesheet" href="/public/style/blog.css">
+    <title></title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7 ">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>User Profile</h4></div>
+                <div class="panel-body">
+                    <div class="box box-info">
+                        <div class="box-body">
+                            <div class="col-sm-6">
+                                <div align="center"><img alt="User Pic"
+                                                         src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                                                         id="profile-image1" class="img-circle img-responsive">
+
+                                    <input id="profile-image-upload" class="hidden" type="file">
+                                    <div style="color:#999;">click here to change profile image</div>
+                                    <!--Upload Image Js And Css-->
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 style="color:#00b1b1;">{{user.name}}</h4></span>
+                                <span><p>{{user.username}}</p></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <hr style="margin:5px 0 5px 0;">
+
+                            <!--<div ng-repeat="(key, val) in user">-->
+                            <!--<div class="col-sm-5 col-xs-6 tital ">{{key}}</div>-->
+                            <!--<div class="col-sm-7 col-xs-6 ">{{val}}</div>-->
+                            <!--<div class="clearfix"></div>-->
+                            <!--<div class="bot-border"></div>-->
+                            <!--</div>-->
+
+                            <div class="col-sm-5 col-xs-6 tital ">Birthday:</div>
+                            <div class="col-sm-7 col-xs-6 ">{{user.birthday}}</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+
+                            <div class="col-sm-5 col-xs-6 tital ">Email:</div>
+                            <div class="col-sm-7 col-xs-6 ">{{user.email}}</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+
+                            <div class="col-sm-5 col-xs-6 tital ">Phone:</div>
+                            <div class="col-sm-7 col-xs-6 ">{{user.phone}}</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+
+                            <div class="col-sm-5 col-xs-6 tital ">Country:</div>
+                            <div class="col-sm-7 col-xs-6 ">{{user.country.name}}</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+
+                            <div class="col-sm-5 col-xs-6 tital ">City:</div>
+                            <div class="col-sm-7 col-xs-6 ">{{user.city.name}}</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+
+                            <div class="col-sm-5 col-xs-6 tital ">Address:</div>
+                            <div class="col-sm-7 col-xs-6 ">{{user.address}}</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('#profile-image1').on('click', function () {
+                    $('#profile-image-upload').click();
+                });
+            });
+        </script>
+    </div>
+</div>
+
+
+<link href="http://ironsummitmedia.github.io/startbootstrap-modern-business/font-awesome/css/font-awesome.min.css"
+      rel="stylesheet"/>
+
+<div ng-repeat="(key, val) in user.microblogs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6"><br><br><br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!--<div class="pull-left media">-->
+                        <!--<img class="img-responsive" src="https://cdn1.iconfinder.com/data/icons/toolbar-signs/512/person-512.png" alt="...">-->
+                        <!--</div>-->
+                        <!--<div class="pull-right"><br>-->
+                        <!--<b><a href="https://www.facebook.com/DLZYagiz">Kullanıcı Adı</a></b>-->
+                        <!--</div><br><br><br>-->
+                        <!--<div style="text-align: center;">-->
+                        <!--<h4>{{val.creationTime}}</h4>-->
+                        <!--</div>-->
+                        <p>{{val.text}}
+                            <!--<img src="http://teknoseyir.com/wp-content/uploads/2015/10/2858e0d6-f1bd-48a5-93a9-f1fb70a8547b.jpg"-->
+                            <!--class="img-responsive">-->
+                        <hr>
+                        <!--<div class="pull-left">-->
+                        <!--<a><b>Beğen</b></a>  <a><b>Yorum Yap</b></a>-->
+                        <!--</div>-->
+                        <!--<div class="pull-right">-->
+                        <!--<a href="https://www.facebook.com/DLZYagiz"><i class="fa fa-2x fa fa-facebook-square"></i></a>  -->
+                        <!--<a><i class="fa fa-2x fa fa-google-plus-square"></i></a>  -->
+                        <!--<a><i class="fa fa-2x fa fa-twitter-square"></i></a>  -->
+                        <!--</div>-->
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
