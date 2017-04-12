@@ -10,11 +10,16 @@
 </head>
 <body>
 
-<a ui-sref="hello">Hello</a>
+<!--<div ng-show="localStorage.token === undefined">-->
+<a ui-sref="login">Login</a>
+<a ui-sref="register">Register</a>
+<!--</div>-->
+
+<!--<div ng-show="localStorage.token != undefined">-->
 <a ui-sref="user-list">User List</a>
+<!--</div>-->
 
 <ui-view></ui-view>
-
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -25,5 +30,8 @@
 <script src="app/user/user-module.js"></script>
 <script src="app/user/list/user-list-controller.js"></script>
 <script src="app/user/view/user-view-controller.js"></script>
+<script src="app/login/login-controller.js"></script>
+<script src="app/register/register-controller.js"></script>
+<script src="app/register/send-register-controller.js"></script>
 </body>
 </html>

@@ -5,13 +5,19 @@ angular
         $stateProvider
             .state({
                 name: 'home',
-                url: '/home',
+                url: '/',
                 controller: 'HomeController',
                 templateUrl: 'app/home/home.html'
             })
             .state({
-                name: 'hello',
-                url: '/hello',
-                template: '<h3>hello world!</h3>'
+                name: 'login',
+                url: '/login',
+                templateUrl: 'app/login/login.html'
+            })
+            .state({
+                name: 'register',
+                url: '/register',
+                controller: 'RegisterController',
+                templateUrl: 'app/register/register.html'
             });
     });

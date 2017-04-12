@@ -4,5 +4,5 @@ angular
 
 
 function HomeController($scope, $http) {
-    $scope.greeting = "Hello";
+    // if ($isEmpty(localStorage.token))
 }

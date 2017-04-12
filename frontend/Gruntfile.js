@@ -1,4 +1,4 @@
-var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+const proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = function (grunt) {
 
