@@ -1,6 +1,8 @@
 angular
     .module('ssnApp', ['ui.router', 'ssnApp.user'])
-
+    .run(($rootScope) => {
+        $rootScope.localStorage = window.localStorage;
+    })
     .config(function ($stateProvider) {
         $stateProvider
             .state({

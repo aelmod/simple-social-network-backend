@@ -37,9 +37,10 @@ public class UserController {
         return userByPk;
     }
 
-    @GetMapping("myPage")
-    public Integer getCurrentUserId(@CurrentUser User user) {
-        return user.getId();
+    @GetMapping("currentUser")
+    @JsonView(User.MinimalView.class)
+    public User getCurrentUser(@CurrentUser User user) {
+        return user;
     }
 
     @PutMapping("{ignoredUserId}/ignore")

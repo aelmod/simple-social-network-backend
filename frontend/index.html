@@ -6,20 +6,50 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .jumbotron p {
+            font-size: 14px;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-form navbar-left">
+                <div ng-show="localStorage.token != undefined">
+                    <button ui-sref="user-list" type="button" class="btn">User List</button>
+                    <button ng-controller="CurrentUserController" ui-sref="user-view({userId: currentUser.id})"
+                            type="button" class="btn">My Page
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="navbar-form navbar-right">
+                <div ng-show="localStorage.token === undefined">
+                    <button ui-sref="login" type="button" class="btn btn-info">Sign in</button>
+                    <button ui-sref="register" type="button" class="btn btn-info">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 
-<!--<div ng-show="localStorage.token === undefined">-->
-<a ui-sref="login">Login</a>
-<a ui-sref="register">Register</a>
-<!--</div>-->
+<div class="jumbotron">
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
+</div>
 
-<!--<div ng-show="localStorage.token != undefined">-->
-<a ui-sref="user-list">User List</a>
-<!--</div>-->
-
-<ui-view></ui-view>
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -35,5 +65,7 @@
 <script src="app/city/city-controller.js"></script>
 <script src="app/country/country-controller.js"></script>
 <script src="app/microblog/microblog-controller.js"></script>
+<script src="app/commentary/commentary-controller.js"></script>
+<script src="app/user/current/current-user-controller.js"></script>
 </body>
 </html>

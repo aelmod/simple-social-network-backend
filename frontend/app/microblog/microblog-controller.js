@@ -10,4 +10,9 @@ function MicroblogController($scope, $http) {
                 $scope.microblog = res.data;
             });
     };
+
+    $scope.addBlog = (microblogForm) => {
+        $http
+            .post('/api/microblog/create', microblogForm, {headers: {"X-Token": localStorage.token}})
+    }
 }

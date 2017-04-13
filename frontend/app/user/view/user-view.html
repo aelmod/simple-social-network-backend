@@ -6,7 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/public/style/userPage.css">
-    <link rel="stylesheet" href="/public/style/blog.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           rel="stylesheet"/>
     <title></title>
@@ -121,7 +120,7 @@
                 <div class="col-md-6"><br><br><br>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <p>{{microblog.user}}</p>
+                            <p><a ui-sref="user-view({userId: microblog.user.id})">{{microblog.user.name}}</a></p>
                             <p>{{microblog.text}}</p>
                             <p>{{microblog.creationTime}}</p>
 
@@ -133,34 +132,36 @@
                                         <div ng-repeat="commentary in microblog.commentaries">
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
-                                                    <p>{{commentary.user}}</p>
+                                                    <p><a ui-sref="user-view({userId: commentary.user.id})">{{commentary.user.name}}</a>
+                                                    </p>
                                                     <p>{{commentary.text}}</p>
                                                     <p>{{commentary.creationTime}}</p>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="flexContainer">
-                                            <label for="comment" class="sr-only">Comment</label>
-                                            <input type="text" class="form-control" id="comment"
-                                                   name="comment" placeholder="Leave a comment...">
+                                        <div ng-controller="CommentaryController">
+                                            <div class="flexContainer">
+                                                <label for="comment" class="sr-only">Comment</label>
+                                                <input type="text" ng-model="commentaryForm.text" class="form-control"
+                                                       id="comment"
+                                                       name="comment" placeholder="Leave a comment...">
 
-                                            <button class="btn" style="float: right;" data-toggle="modal"
-                                                    data-target="#smallModal">
-                                                <span class="glyphicon glyphicon-menu-right"></span>
-                                            </button>
+                                                <button ng-click="addComment(microblog.id, commentaryForm)" class="btn"
+                                                        style="float: right;">
+                                                    <span class="glyphicon glyphicon-menu-right"></span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>
