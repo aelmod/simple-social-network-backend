@@ -17,7 +17,7 @@
     <title>Document</title>
 </head>
 <body>
-<div ng-controller="SendRegisterController">
+<div ng-controller="RegisterController">
     <div class="text-center" style="padding:50px 0">
         <div class="logo">register</div>
         <div class="login-form-1">
@@ -55,15 +55,19 @@
                                    name="reg_fullname"
                                    placeholder="full name">
                         </div>
-                        <div class="form-group">
-                            <label for="reg_phone" class="sr-only">Phone number</label>
-                            <input type="text" ng-model="userRegisterForm.phone" class="form-control" id="reg_phone"
-                                   name="reg_phone" placeholder="phone">
-                        </div>
 
-                        <!--<button class="btn btn-default" style="float: right;" data-toggle="modal" data-target="#smallModal">-->
-                        <!--<img src="/public/pic/info_8x16.png" width="5" />-->
-                        <!--</button>-->
+                        <div class="flexContainer">
+                            <div class="form-group">
+                                <label for="reg_phone" class="sr-only">Phone number</label>
+                                <input type="text" ng-model="userRegisterForm.phone" class="form-control" id="reg_phone"
+                                       name="reg_phone" placeholder="phone">
+                            </div>
+
+                            <button class="btn btn-default" style="float: right;" data-toggle="modal"
+                                    data-target="#smallModal">
+                                <img src="/public/pic/info_8x16.png" width="5"/>
+                            </button>
+                        </div>
 
                         <div class="form-group">
                             <label for="reg_birthday" class="sr-only">Birthday</label>
@@ -79,21 +83,30 @@
                                    placeholder="address">
                         </div>
 
-                        <div class="form-group">
-                            <label for="reg_countryId">Country</label>
-
-                            <select ng-model="userRegisterForm.countryId" class="form-control" id="reg_countryId"
-                                    name="reg_countryId">
-                                <option ng-repeat="(key, val) in countries" value="{{val.id}}">{{val.name}}</option>
-                            </select>
+                        <div ng-controller="CountryController">
+                            <br>
+                            <div class="form-group">
+                                <label for="reg_countryId" class="sr-only">Choose your Country</label>
+                                <select ng-model="userRegisterForm.countryId" class="form-control" id="reg_countryId"
+                                        name="reg_countryId">
+                                    <option disabled value="">Choose your Country</option>
+                                    <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <br>
                         </div>
 
-                        <div class="form-group">
-                            <label for="reg_cityId">City</label>
-                            <select ng-model="userRegisterForm.cityId" class="form-control" id="reg_cityId"
-                                    name="reg_cityId">
-                                <option ng-repeat="(key, val) in cities" value="{{val.id}}">{{val.name}}</option>
-                            </select>
+                        <div ng-controller="CityController">
+                            <div class="form-group">
+                                <label for="reg_cityId" class="sr-only">Choose your City</label>
+                                <select ng-model="userRegisterForm.cityId" class="form-control" id="reg_cityId"
+                                        name="reg_cityId">
+                                    <option disabled value="">Choose your City</option>
+                                    <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                                </select>
+                            </div>
+                            <br>
                         </div>
 
                         <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModal"
@@ -120,13 +133,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="form-group login-group-checkbox">-->
-                        <!--<input type="radio" class="" name="reg_gender" id="male" placeholder="username">-->
-                        <!--<label for="male">male</label>-->
-
-                        <!--<input type="radio" class="" name="reg_gender" id="female" placeholder="username">-->
-                        <!--<label for="female">female</label>-->
-                        <!--</div>-->
                     </div>
                     <button type="submit" ng-click="register(userRegisterForm)" class="login-button"><i
                             class="fa fa-chevron-right"></i></button>

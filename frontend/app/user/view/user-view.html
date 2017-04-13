@@ -7,122 +7,154 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/public/style/userPage.css">
     <link rel="stylesheet" href="/public/style/blog.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet"/>
     <title></title>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-7 ">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>User Profile</h4></div>
-                <div class="panel-body">
-                    <div class="box box-info">
-                        <div class="box-body">
-                            <div class="col-sm-6">
-                                <div align="center"><img alt="User Pic"
-                                                         src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
-                                                         id="profile-image1" class="img-circle img-responsive">
+<div ng-controller="UserViewController">
+    <div class="container" style="width: 550px">
+        <div class="row">
+            <div class="center-block">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>User Profile</h4></div>
+                    <div class="panel-body">
+                        <div class="box box-info">
+                            <div class="box-body">
+                                <div class="col-sm-6">
+                                    <div align="center">
+                                        <img alt="User Pic"
+                                             src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                                             id="profile-image1" class="img-circle img-responsive">
 
-                                    <input id="profile-image-upload" class="hidden" type="file">
-                                    <div style="color:#999;">click here to change profile image</div>
-                                    <!--Upload Image Js And Css-->
+                                        <input id="profile-image-upload" class="hidden" type="file">
+                                        <div style="color:#999;">click here to change profile image</div>
+                                    </div>
+                                    <br>
                                 </div>
-                                <br>
+                                <div class="col-sm-6">
+                                    <h4 style="color:#00b1b1;">{{user.name}}</h4>
+                                    <div><p>{{user.username}}</p></div>
+                                    <div>
+                                        <ul class="nav navbar-nav">
+                                            <li class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown">Actions
+                                                    <span class="glyphicon glyphicon-option-horizontal pull-right"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Account Settings <span
+                                                            class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">User stats <span
+                                                            class="glyphicon glyphicon-stats pull-right"></span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Favourites Snippets <span
+                                                            class="glyphicon glyphicon-heart pull-right"></span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Sign Out <span
+                                                            class="glyphicon glyphicon-log-out pull-right"></span></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <hr style="margin:5px 0 5px 0;">
+
+                                <div class="col-sm-5 col-xs-6 tital ">Birthday:</div>
+                                <div class="col-sm-7 col-xs-6 ">{{user.birthday}}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-5 col-xs-6 tital ">Email:</div>
+                                <div class="col-sm-7 col-xs-6 ">{{user.email}}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-5 col-xs-6 tital ">Phone:</div>
+                                <div class="col-sm-7 col-xs-6 ">{{user.phone}}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-5 col-xs-6 tital ">Country:</div>
+                                <div class="col-sm-7 col-xs-6 ">{{user.country.name}}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-5 col-xs-6 tital ">City:</div>
+                                <div class="col-sm-7 col-xs-6 ">{{user.city.name}}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-5 col-xs-6 tital ">Address:</div>
+                                <div class="col-sm-7 col-xs-6 ">{{user.address}}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
                             </div>
-                            <div class="col-sm-6">
-                                <h4 style="color:#00b1b1;">{{user.name}}</h4></span>
-                                <span><p>{{user.username}}</p></span>
-                            </div>
-                            <div class="clearfix"></div>
-                            <hr style="margin:5px 0 5px 0;">
-
-                            <!--<div ng-repeat="(key, val) in user">-->
-                            <!--<div class="col-sm-5 col-xs-6 tital ">{{key}}</div>-->
-                            <!--<div class="col-sm-7 col-xs-6 ">{{val}}</div>-->
-                            <!--<div class="clearfix"></div>-->
-                            <!--<div class="bot-border"></div>-->
-                            <!--</div>-->
-
-                            <div class="col-sm-5 col-xs-6 tital ">Birthday:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{user.birthday}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Email:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{user.email}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Phone:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{user.phone}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Country:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{user.country.name}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">City:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{user.city.name}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Address:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{user.address}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-            $(function () {
-                $('#profile-image1').on('click', function () {
-                    $('#profile-image-upload').click();
+            <script>
+                $(function () {
+                    $('#profile-image1').on('click', function () {
+                        $('#profile-image-upload').click();
+                    });
                 });
-            });
-        </script>
+            </script>
+        </div>
     </div>
 </div>
 
+<div ng-repeat="microblog in user.microblogs">
+    <div ng-controller="MicroblogController" ng-init="init(microblog.id)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6"><br><br><br>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p>{{microblog.user}}</p>
+                            <p>{{microblog.text}}</p>
+                            <p>{{microblog.creationTime}}</p>
 
-<link href="http://ironsummitmedia.github.io/startbootstrap-modern-business/font-awesome/css/font-awesome.min.css"
-      rel="stylesheet"/>
+                            <hr>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-15">
 
-<div ng-repeat="(key, val) in user.microblogs">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6"><br><br><br>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <!--<div class="pull-left media">-->
-                        <!--<img class="img-responsive" src="https://cdn1.iconfinder.com/data/icons/toolbar-signs/512/person-512.png" alt="...">-->
-                        <!--</div>-->
-                        <!--<div class="pull-right"><br>-->
-                        <!--<b><a href="https://www.facebook.com/DLZYagiz">Kullanıcı Adı</a></b>-->
-                        <!--</div><br><br><br>-->
-                        <!--<div style="text-align: center;">-->
-                        <!--<h4>{{val.creationTime}}</h4>-->
-                        <!--</div>-->
-                        <p>{{val.text}}
-                            <!--<img src="http://teknoseyir.com/wp-content/uploads/2015/10/2858e0d6-f1bd-48a5-93a9-f1fb70a8547b.jpg"-->
-                            <!--class="img-responsive">-->
-                        <hr>
-                        <!--<div class="pull-left">-->
-                        <!--<a><b>Beğen</b></a>  <a><b>Yorum Yap</b></a>-->
-                        <!--</div>-->
-                        <!--<div class="pull-right">-->
-                        <!--<a href="https://www.facebook.com/DLZYagiz"><i class="fa fa-2x fa fa-facebook-square"></i></a>  -->
-                        <!--<a><i class="fa fa-2x fa fa-google-plus-square"></i></a>  -->
-                        <!--<a><i class="fa fa-2x fa fa-twitter-square"></i></a>  -->
-                        <!--</div>-->
-                    </div>
-                    <div class="col-md-3">
+                                        <div ng-repeat="commentary in microblog.commentaries">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <p>{{commentary.user}}</p>
+                                                    <p>{{commentary.text}}</p>
+                                                    <p>{{commentary.creationTime}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flexContainer">
+                                            <label for="comment" class="sr-only">Comment</label>
+                                            <input type="text" class="form-control" id="comment"
+                                                   name="comment" placeholder="Leave a comment...">
+
+                                            <button class="btn" style="float: right;" data-toggle="modal"
+                                                    data-target="#smallModal">
+                                                <span class="glyphicon glyphicon-menu-right"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
