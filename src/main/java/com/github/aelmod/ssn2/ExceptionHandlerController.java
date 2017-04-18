@@ -1,10 +1,10 @@
 package com.github.aelmod.ssn2;
 
+import com.github.aelmod.ssn2.security.BadCredentialsException;
 import com.github.aelmod.ssn2.user.BadUserBehaviorException;
 import com.github.aelmod.ssn2.user.UserAlreadyExistsException;
 import com.github.aelmod.ssn2.user.settings.NotRelevantUserPrivacySettingsException;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,7 +28,7 @@ public class ExceptionHandlerController {
         return new ExceptionInfo(request.getRequestURI(), e.getMessage());
     }
 
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
     public ExceptionInfo badCredentialsHandler(HttpServletRequest request, PersistenceException e) {
         return new ExceptionInfo(request.getRequestURI(), e.getMessage());

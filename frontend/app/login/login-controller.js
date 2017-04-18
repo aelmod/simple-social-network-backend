@@ -9,8 +9,6 @@ function LoginController($scope, $http) {
             .post('/api/login', user)
             .then((res) => {
                 localStorage.token = res.data;
-            }, () => {
-                alert("Invalid");
             });
     };
 }

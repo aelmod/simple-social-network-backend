@@ -31,22 +31,22 @@ app
             });
     });
 
-app.factory('authInterceptor', [function ($q) {
+app.factory('authInterceptor', ['$q', function ($q) {
     return {
         request: function (config) {
-            if (window.localStorage.getItem('X-Token') !== undefined) {
+            if (window.localStorage.token !== undefined) {
                 config.headers['X-Token'] = window.localStorage.token;
             }
             return config;
         },
         'responseError': function (rejection) {
             if (rejection.status === 401) {
-                //  Redirect user to login page / signup Page.
+                alert(rejection.data.message);
             }
             if (rejection.status === 500) {
                 alert('Error');
             }
-            return rejection || $q.when(rejection);
+            return $q.reject(rejection);
         }
     };
 }]);
