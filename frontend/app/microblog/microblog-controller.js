@@ -5,7 +5,7 @@ angular
 function MicroblogController($scope, $http) {
     $scope.init = (microblogId) => {
         $http
-            .get('/api/microblog/' + microblogId, {headers: {"X-Token": localStorage.token}})
+            .get('/api/microblog/' + microblogId)
             .then((res) => {
                 $scope.microblog = res.data;
             });

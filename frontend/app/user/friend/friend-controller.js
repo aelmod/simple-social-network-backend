@@ -4,7 +4,7 @@ angular
 
 function UserFriendController($scope, $http, $stateParams) {
     $http
-        .get('/api/users/' + $stateParams.userId + '/friends', {headers: {"X-Token": localStorage.token}})
+        .get('/api/users/' + $stateParams.userId + '/friends')
         .then((res) => {
             $scope.friends = res.data;
         });

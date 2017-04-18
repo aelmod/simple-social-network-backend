@@ -4,7 +4,7 @@ angular
 
 function UserListController($scope, $http) {
     $http
-        .get('/api/users', {headers: {"X-Token": localStorage.token}})
+        .get('/api/users')
         .then((res) => {
             $scope.users = res.data;
         });

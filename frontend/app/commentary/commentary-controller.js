@@ -5,7 +5,7 @@ angular
 function CommentaryController($scope, $http, $state) {
     $scope.addComment = (microblogId, commentaryForm) => {
         $http
-            .post('/api/microblog/' + microblogId + '/commentaries/add', commentaryForm, {headers: {"X-Token": localStorage.token}})
+            .post('/api/microblog/' + microblogId + '/commentaries/add', commentaryForm)
             .then(() => {
                     $state.reload();
                 }

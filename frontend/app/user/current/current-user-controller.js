@@ -4,7 +4,7 @@ angular
 
 function CurrentUserController($scope, $http) {
     $http
-        .get('/api/users/currentUser', {headers: {"X-Token": localStorage.token}})
+        .get('/api/users/currentUser')
         .then((res) => {
             $scope.currentUser = res.data;
         });

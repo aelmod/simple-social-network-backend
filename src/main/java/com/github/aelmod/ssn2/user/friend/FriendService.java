@@ -43,6 +43,10 @@ public class FriendService {
     public void requestFriendship(User user, Integer requestedFriendshipUserId) {
         User theoreticalFriend = userService.getByPk(requestedFriendshipUserId);
         user = userService.getByPk(user.getId());
+        user.getFriendRequestsBucket().forEach(userConsumer -> {
+            if (userConsumer.getId().equals(requestedFriendshipUserId))
+                throw new BadUserBehaviorException("You have already invited this user");
+        });
         user.getFriendRequestsBucket().add(theoreticalFriend);
         userRepository.persist(user);
     }

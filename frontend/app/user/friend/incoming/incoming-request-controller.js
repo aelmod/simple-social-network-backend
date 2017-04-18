@@ -4,7 +4,7 @@ angular
 
 function FriendIncomingRequestController($scope, $http) {
     $http
-        .get('/api/users/friends/incomingRequests', {headers: {"X-Token": localStorage.token}})
+        .get('/api/users/friends/incomingRequests')
         .then((res) => {
             $scope.incomingRequests = res.data;
         })

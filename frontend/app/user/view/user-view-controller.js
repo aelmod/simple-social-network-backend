@@ -5,7 +5,7 @@ angular
 
 function UserViewController($scope, $http, $stateParams) {
     $http
-        .get('/api/users/' + $stateParams.userId, {headers: {"X-Token": localStorage.token}})
+        .get('/api/users/' + $stateParams.userId)
         .then((res) => {
             $scope.user = res.data;
         });
