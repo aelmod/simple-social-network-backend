@@ -5,7 +5,7 @@ angular
 function UserFriendBehaviorController($scope, $http) {
     $scope.addFriend = (userId) => {
         $http
-            .post('/api/users/friends', userId, {headers: {"X-Token": localStorage.token}})
+            .post('/api/users/friends', JSON.stringify({userId: userId}), {headers: {"X-Token": localStorage.token}})
     };
 
     $scope.acceptFriendshipRequest = (userId) => {
@@ -14,11 +14,16 @@ function UserFriendBehaviorController($scope, $http) {
     };
 
     $scope.rejectFriendshipRequest = (userId) => {
-        $http
-            .defaults
-            .headers
-            .delete = {"X-Token": localStorage.token};
-        $http
-            .delete('/api/users/friends', userId)
+        $http({
+            url: '/api/users/friends',
+            method: 'DELETE',
+            data: {
+                userId: userId
+            },
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+                "X-Token": localStorage.token
+            }
+        })
     };
 }

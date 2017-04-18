@@ -7,6 +7,7 @@ import com.github.aelmod.ssn2.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,17 +43,17 @@ public class FriendController {
     }
 
     @PostMapping("friends")
-    public void requestFriendship(@CurrentUser User currentUser, @RequestBody Integer requestedFriendshipUserId) {
-        friendService.requestFriendship(currentUser, requestedFriendshipUserId);
+    public void requestFriendship(@CurrentUser User currentUser, @RequestBody @Valid UserIdForm requestedFriendshipUserId) {
+        friendService.requestFriendship(currentUser, requestedFriendshipUserId.getUserId());
     }
 
     @PutMapping("friends")
-    public void acceptFriendshipRequest(@CurrentUser User user, @RequestBody Integer userId) {
-        friendService.acceptFriendshipRequest(user, userId);
+    public void acceptFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userId) {
+        friendService.acceptFriendshipRequest(user, userId.getUserId());
     }
 
     @DeleteMapping("friends")
-    public void rejectFriendshipRequest(@CurrentUser User user, @RequestBody Integer userId) {
-        friendService.rejectFriendshipRequest(user, userId);
+    public void rejectFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userId) {
+        friendService.rejectFriendshipRequest(user, userId.getUserId());
     }
 }
