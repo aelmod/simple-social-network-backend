@@ -46,24 +46,24 @@
                                                             class="glyphicon glyphicon-user pull-right"></span></a>
                                                     </li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#">Outgoing requests <span
+                                                    <li><a ui-sref="outgoing-request-list">Outgoing requests <span
                                                             class="glyphicon glyphicon-arrow-right pull-right"></span></a>
                                                     </li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#">Incoming requests <span
+                                                    <li><a ui-sref="incoming-request-list">Incoming requests <span
                                                             class="glyphicon glyphicon-arrow-left pull-right"></span></a>
                                                     </li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Favourites Snippets <span
-                                                            class="glyphicon glyphicon-heart pull-right"></span></a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Sign Out <span
-                                                            class="glyphicon glyphicon-log-out pull-right"></span></a>
-                                                    </li>
+                                                    <!--<li class="divider"></li>-->
+                                                    <!--<li><a href="#">Messages <span class="badge pull-right"> 42 </span></a>-->
+                                                    <!--</li>-->
+                                                    <!--<li class="divider"></li>-->
+                                                    <!--<li><a href="#">Favourites Snippets <span-->
+                                                    <!--class="glyphicon glyphicon-heart pull-right"></span></a>-->
+                                                    <!--</li>-->
+                                                    <!--<li class="divider"></li>-->
+                                                    <!--<li><a href="#">Sign Out <span-->
+                                                    <!--class="glyphicon glyphicon-log-out pull-right"></span></a>-->
+                                                    <!--</li>-->
                                                 </ul>
 
                                                 <ul class="dropdown-menu" ng-controller="CurrentUserController"
@@ -76,8 +76,9 @@
                                                             class="glyphicon glyphicon-user pull-right"></span></a>
                                                     </li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#">Sign Out <span
-                                                            class="glyphicon glyphicon-log-out pull-right"></span></a>
+                                                    <li><a ng-controller="UserFriendBehaviorController"
+                                                           ng-click="addFriend(user.id)">Add to friends <span
+                                                            class="glyphicon glyphicon-plus pull-right"></span></a>
                                                     </li>
                                                 </ul>
 

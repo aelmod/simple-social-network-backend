@@ -14,7 +14,10 @@ function UserFriendBehaviorController($scope, $http) {
     };
 
     $scope.rejectFriendshipRequest = (userId) => {
-        $http.defaults.headers.delete = {"X-Token": localStorage.token};
+        $http
+            .defaults
+            .headers
+            .delete = {"X-Token": localStorage.token};
         $http
             .delete('/api/users/friends', userId)
     };
