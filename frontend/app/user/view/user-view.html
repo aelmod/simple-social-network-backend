@@ -110,7 +110,27 @@
         </div>
     </div>
 </div>
-
+<div class="createBlog" ng-controller="CurrentUserController" ng-show="user.id === currentUser.id">
+    <div ng-controller="MicroblogController">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="flexContainer">
+                        <label for="microblogText"></label>
+                        <input type="text" class="form-control" ng-model="microblogForm.text"
+                               placeholder="Write your microblog..."
+                               id="microblogText">
+                        <button class="btn" ng-click="addBlog(microblogForm)">
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div ng-repeat="microblog in user.microblogs">
     <div ng-controller="MicroblogController" ng-init="init(microblog.id)">
         <div class="container">

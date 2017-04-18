@@ -13,5 +13,15 @@ angular
                 url: '/user/:userId',
                 controller: 'UserViewController',
                 templateUrl: 'app/user/view/user-view.html'
+            })
+            .state({
+                name: 'logout',
+                url: '/logout',
+                controller: 'LogoutController'
+            })
+            .state({
+                name: 'user-ignore',
+                url: '/user/ignore/:userId',
+                controller: 'UserIgnoreController'
             });
     });

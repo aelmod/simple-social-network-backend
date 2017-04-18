@@ -39,6 +39,9 @@
                     <button ui-sref="login" type="button" class="btn btn-info">Sign in</button>
                     <button ui-sref="register" type="button" class="btn btn-info">Sign up</button>
                 </div>
+                <div ng-show="localStorage.token != undefined">
+                    <button ui-sref="logout" type="button" class="btn">Logout</button>
+                </div>
             </div>
         </div>
     </div>
@@ -49,7 +52,6 @@
         <ui-view></ui-view>
     </div>
 </div>
-
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -67,5 +69,6 @@
 <script src="app/microblog/microblog-controller.js"></script>
 <script src="app/commentary/commentary-controller.js"></script>
 <script src="app/user/current/current-user-controller.js"></script>
+<script src="app/user/logout/logout-controller.js"></script>
 </body>
 </html>
