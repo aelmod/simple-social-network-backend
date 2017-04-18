@@ -16,7 +16,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @ToString
 @NoArgsConstructor
@@ -86,21 +88,21 @@ public class User implements Serializable {
             joinColumns = {@JoinColumn(name = "user1_id")},
             inverseJoinColumns = {@JoinColumn(name = "user2_id")}
     )
-    private Set<User> friends = new HashSet<>();
+    private List<User> friends = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "friendship_requests_bucket",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "requested_friendship_user_id")}
     )
-    private Set<User> friendRequestsBucket = new HashSet<>();
+    private List<User> friendRequestsBucket = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "ignore_list",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "ignored_user_id")}
     )
-    private Set<User> ignoreList = new HashSet<>();
+    private List<User> ignoreList = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private UserSettings userSettings;

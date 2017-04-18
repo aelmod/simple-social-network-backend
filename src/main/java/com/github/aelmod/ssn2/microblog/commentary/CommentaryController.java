@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/microblog/{microblogId}/commentaries")
@@ -51,7 +50,7 @@ public class CommentaryController {
         User microblogAuthor = rootMicroblog.getUser();
         if (Objects.isNull(microblogAuthor.getUserSettings())) return;
         if (microblogAuthor.getUserSettings().getCommentaryPrivacy() == UserSettings.CommentaryPrivacy.ONLY_FRIENDS) {
-            Set<User> friends = microblogAuthor.getFriends();
+            List<User> friends = microblogAuthor.getFriends();
             friends.forEach(friend -> {
                 if (!Objects.equals(friend.getId(), user.getId()))
                     throw new NotRelevantUserPrivacySettingsException("User allowed to comment on his microblog only to friends");

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friends</title>
+</head>
+<body>
+
+<div class="container" ng-controller="UserFriendController">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6"><br><br><br>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <hr>
+                    <div ng-repeat="friend in friends">
+                        <p><a ui-sref="user-view({userId: friend.id})">{{friend.name}}</a></p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

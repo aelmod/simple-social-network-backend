@@ -39,12 +39,19 @@
                                             <li class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">Actions
                                                     <span class="glyphicon glyphicon-option-horizontal pull-right"></span></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Account Settings <span
-                                                            class="glyphicon glyphicon-cog pull-right"></span></a></li>
+
+                                                <ul class="dropdown-menu" ng-controller="CurrentUserController"
+                                                    ng-show="user.id === currentUser.id">
+                                                    <li><a ui-sref="user-friends({userId: user.id})">Friends <span
+                                                            class="glyphicon glyphicon-user pull-right"></span></a>
+                                                    </li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#">User stats <span
-                                                            class="glyphicon glyphicon-stats pull-right"></span></a>
+                                                    <li><a href="#">Outgoing requests <span
+                                                            class="glyphicon glyphicon-arrow-right pull-right"></span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Incoming requests <span
+                                                            class="glyphicon glyphicon-arrow-left pull-right"></span></a>
                                                     </li>
                                                     <li class="divider"></li>
                                                     <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a>
@@ -58,6 +65,22 @@
                                                             class="glyphicon glyphicon-log-out pull-right"></span></a>
                                                     </li>
                                                 </ul>
+
+                                                <ul class="dropdown-menu" ng-controller="CurrentUserController"
+                                                    ng-show="user.id != currentUser.id">
+                                                    <li><a ui-sref="ignore-user({userId: user.id})">Ignore <span
+                                                            class="glyphicon glyphicon-remove-sign pull-right"></span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a ui-sref="user-friends({userId: user.id})">Friends <span
+                                                            class="glyphicon glyphicon-user pull-right"></span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Sign Out <span
+                                                            class="glyphicon glyphicon-log-out pull-right"></span></a>
+                                                    </li>
+                                                </ul>
+
                                             </li>
                                         </ul>
                                     </div>

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -26,13 +25,13 @@ public class FriendController {
 
     @GetMapping("{userId}/friends")
     @JsonView(User.AllPrimitivesView.class)
-    public Set<User> getFriends(@PathVariable Integer userId) {
+    public List<User> getFriends(@PathVariable Integer userId) {
         return userService.getByPk(userId).getFriends();
     }
 
     @GetMapping("friends/outgoingRequests")
     @JsonView(User.MinimalView.class)
-    public Set<User> getOutgoingFriendshipRequests(@CurrentUser User currentUser) {
+    public List<User> getOutgoingFriendshipRequests(@CurrentUser User currentUser) {
         return currentUser.getFriendRequestsBucket();
     }
 

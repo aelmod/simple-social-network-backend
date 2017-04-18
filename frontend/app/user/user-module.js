@@ -15,12 +15,30 @@ angular
                 templateUrl: 'app/user/view/user-view.html'
             })
             .state({
+                name: 'user-friends',
+                url: '/user/:userId/friends',
+                controller: 'UserFriendController',
+                templateUrl: 'app/user/friend/friend-list-view.html'
+            })
+            .state({
+                name: 'incoming-request-list',
+                url: '/user/:userId/friends/incoming',
+                controller: 'FriendIncomingRequestController',
+                templateUrl: 'app/user/friend/incoming/incoming-request-list-view.html'
+            })
+            .state({
+                name: 'outgoing-request-list',
+                url: '/user/:userId/friends/outgoing',
+                controller: 'FriendOutgoingRequestController',
+                templateUrl: 'app/user/friend/outgoing/outgoing-request-list-view.html'
+            })
+            .state({
                 name: 'logout',
                 url: '/logout',
                 controller: 'LogoutController'
             })
             .state({
-                name: 'user-ignore',
+                name: 'ignore-user',
                 url: '/user/ignore/:userId',
                 controller: 'UserIgnoreController'
             });

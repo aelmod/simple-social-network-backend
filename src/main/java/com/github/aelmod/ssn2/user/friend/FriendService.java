@@ -49,18 +49,18 @@ public class FriendService {
 
     @Transactional
     public void acceptFriendshipRequest(User user, Integer theoreticalFriendId) {
-        user.getFriendRequestsBucket().removeIf(theoreticalFriend ->
-                Objects.equals(theoreticalFriend.getId(), theoreticalFriendId));
         User theoreticalFriend = userService.getByPk(theoreticalFriendId);
+        theoreticalFriend.getFriendRequestsBucket().remove(user);
         makeFriends(user, theoreticalFriend);
         userRepository.persist(user);
+        userRepository.persist(theoreticalFriend);
     }
 
     @Transactional
     public void rejectFriendshipRequest(User user, Integer theoreticalFriendId) {
-        user.getFriendRequestsBucket().removeIf(theoreticalFriend ->
-                Objects.equals(theoreticalFriend.getId(), theoreticalFriendId));
-        userRepository.persist(user);
+        User theoreticalFriend = userService.getByPk(theoreticalFriendId);
+        theoreticalFriend.getFriendRequestsBucket().remove(user);
+        userRepository.persist(theoreticalFriend);
     }
 
     @Transactional(readOnly = true)
