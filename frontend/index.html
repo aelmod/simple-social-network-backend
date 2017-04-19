@@ -6,15 +6,29 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/style/userPage.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://rawgit.com/alexk111/ngImgCrop/master/compile/unminified/ng-img-crop.css">
     <style>
         .jumbotron p {
             font-size: 14px;
+        }
+
+        .jumbotron {
+            padding-top: 76px;
+        }
+
+        body {
+            overflow: scroll;
+            background: #f0f0f0;
         }
     </style>
     <title>Social Network</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-show="currentUser">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -24,24 +38,29 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-form navbar-left">
-                <div ng-show="localStorage.token != undefined">
-                    <button ui-sref="user-list" type="button" class="btn">User List</button>
-                    <button ng-controller="CurrentUserController" ui-sref="user-view({userId: currentUser.id})"
-                            type="button" class="btn">My Page
-                    </button>
-                </div>
-            </div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <div class="navbar-form navbar-left">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="user-view({userId: currentUser.id})">
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;My Page
+                    </a></li>
+                    <li>
+                        <a ui-sref="user-friends({userId: currentUser.id})">
+                            <span class="fa fa-users"></span>&nbsp;Friends
+                        </a>
+                    </li>
+                    <li><a href="#"><span class="fa fa-comments"></span>&nbsp;Messages&nbsp;<span
+                            class="badge"> 42 </span></a></li>
+                    <li><a ui-sref="user-list">
+                        <span class="glyphicon glyphicon-globe"></span>&nbsp;Find people
+                    </a></li>
+                </ul>
+            </div>
             <div class="navbar-form navbar-right">
-                <div ng-show="localStorage.token === undefined">
-                    <button ui-sref="login" type="button" class="btn btn-info">Sign in</button>
-                    <button ui-sref="register" type="button" class="btn btn-info">Sign up</button>
-                </div>
-                <div ng-show="localStorage.token != undefined">
-                    <button ui-sref="logout" type="button" class="btn">Logout</button>
-                </div>
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="logout">Logout</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -73,8 +92,7 @@
 <script src="app/city/city-controller.js"></script>
 <script src="app/country/country-controller.js"></script>
 <script src="app/microblog/microblog-controller.js"></script>
-<script src="app/commentary/commentary-controller.js"></script>
-<script src="app/user/current/current-user-controller.js"></script>
+<script src="app/microblog/microblog-component.js"></script>
 <script src="app/user/logout/logout-controller.js"></script>
 <script src="app/user/behavior/ignore-controller.js"></script>
 <script src="app/user/friend/friend-controller.js"></script>

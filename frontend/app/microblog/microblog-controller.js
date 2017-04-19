@@ -2,17 +2,21 @@ angular
     .module('ssnApp')
     .controller('MicroblogController', MicroblogController);
 
-function MicroblogController($scope, $http) {
-    $scope.init = (microblogId) => {
+function MicroblogController($http) {
+    this.$onInit = () => {
         $http
-            .get('/api/microblog/' + microblogId)
+            .get('/api/microblog/' + this.microblogId)
             .then((res) => {
-                $scope.microblog = res.data;
+                this.microblog = res.data;
             });
     };
 
-    $scope.addBlog = (microblogForm) => {
+    this.addComment = (microblogId, commentaryForm) => {
         $http
-            .post('/api/microblog/create', microblogForm, {headers: {"X-Token": localStorage.token}})
-    }
+            .post('/api/microblog/' + microblogId + '/commentaries', commentaryForm)
+            .then((res) => {
+                this.microblog.commentaries.push(res.data);
+                commentaryForm.text = '';
+            });
+    };
 }

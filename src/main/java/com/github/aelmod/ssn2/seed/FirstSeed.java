@@ -15,6 +15,7 @@
 //
 //import javax.annotation.PostConstruct;
 //import java.util.ArrayList;
+//import java.util.Date;
 //import java.util.List;
 //import java.util.Objects;
 //
@@ -86,6 +87,7 @@
 //            microblog.setText("Hi" + i);
 ////            microblogs.add(microblog);
 //            microblog.setUser(users.get((int) (Math.random() * USER_COUNT)));
+//            microblog.setCreationTime(new Date());
 //            microblogService.create(microblog);
 //        }
 //

@@ -1,14 +1,19 @@
-let app = angular
-    .module('ssnApp', ['ui.router', 'ssnApp.user']);
-app
-    .run(($rootScope) => {
-        $rootScope.localStorage = window.localStorage;
+angular
+    .module('ssnApp', ['ui.router', 'ssnApp.user', 'ngFileUpload', 'ngImgCrop'])
+    .run(($rootScope, $http) => {
+        if (localStorage.token !== undefined) {
+            $http
+                .get('/api/users/currentUser')
+                .then((res) => {
+                    $rootScope.currentUser = res.data;
+                });
+        }
     })
     .config(function ($stateProvider) {
         $stateProvider
             .state({
                 name: 'home',
-                url: '/',
+                url: '',
                 controller: 'HomeController',
                 templateUrl: 'app/home/home.html'
             })
@@ -26,7 +31,7 @@ app
             .state({
                 name: 'upload',
                 url: '/upload',
-                controller: 'UploadController',
+                controller: 'MyCtrl',
                 templateUrl: 'app/upload/upload-view.html'
             })
             .state({
@@ -35,28 +40,26 @@ app
                 controller: 'RegisterController',
                 templateUrl: 'app/register/register.html'
             });
+    })
+    .factory('authInterceptor', function ($q) {
+        return {
+            request: function (config) {
+                if (localStorage.token !== undefined) {
+                    config.headers['X-Token'] = localStorage.token;
+                }
+                return config;
+            },
+            responseError: function (rejection) {
+                if (rejection.status === 401) {
+                    alert(rejection.data.message);
+                }
+                if (rejection.status === 500) {
+                    alert('Error');
+                }
+                return $q.reject(rejection);
+            }
+        };
+    })
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
     });
-
-app.factory('authInterceptor', ['$q', function ($q) {
-    return {
-        request: function (config) {
-            if (window.localStorage.token !== undefined) {
-                config.headers['X-Token'] = window.localStorage.token;
-            }
-            return config;
-        },
-        'responseError': function (rejection) {
-            if (rejection.status === 401) {
-                alert(rejection.data.message);
-            }
-            if (rejection.status === 500) {
-                alert('Error');
-            }
-            return $q.reject(rejection);
-        }
-    };
-}]);
-
-app.config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
-}]);

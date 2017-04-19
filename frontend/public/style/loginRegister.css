@@ -28,7 +28,8 @@ body {
 
 /*=== 2. Anchor Link ===*/
 a {
-    color: #aaaaaa;
+    color: rgba(0, 0, 0, 0.47);
+    text-decoration: underline;
     transition: all ease-in-out 200ms;
 }
 

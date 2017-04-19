@@ -3,14 +3,14 @@ package com.github.aelmod.ssn2.microblog.commentary;
 import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.user.User;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Setter
 public class CommentaryForm {
 
-    @NotNull
+    @NotEmpty
     private String text;
 
     private Integer microblogId;

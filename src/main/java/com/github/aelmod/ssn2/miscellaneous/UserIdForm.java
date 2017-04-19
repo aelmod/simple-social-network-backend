@@ -1,4 +1,4 @@
-package com.github.aelmod.ssn2.user.friend;
+package com.github.aelmod.ssn2.miscellaneous;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +10,5 @@ import javax.validation.constraints.NotNull;
 public class UserIdForm {
 
     @NotNull
-    private int userId;
+    private Integer userId;
 }

@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2.user.friend;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.miscellaneous.UserIdForm;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import com.github.aelmod.ssn2.user.User;
 import com.github.aelmod.ssn2.user.UserService;
@@ -43,17 +44,17 @@ public class FriendController {
     }
 
     @PostMapping("friends")
-    public void requestFriendship(@CurrentUser User currentUser, @RequestBody @Valid UserIdForm requestedFriendshipUserId) {
-        friendService.requestFriendship(currentUser, requestedFriendshipUserId.getUserId());
+    public void requestFriendship(@CurrentUser User currentUser, @RequestBody @Valid UserIdForm userIdForm) {
+        friendService.requestFriendship(currentUser, userIdForm.getUserId());
     }
 
     @PutMapping("friends")
-    public void acceptFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userId) {
-        friendService.acceptFriendshipRequest(user, userId.getUserId());
+    public void acceptFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userIdForm) {
+        friendService.acceptFriendshipRequest(user, userIdForm.getUserId());
     }
 
     @DeleteMapping("friends")
-    public void rejectFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userId) {
-        friendService.rejectFriendshipRequest(user, userId.getUserId());
+    public void rejectFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userIdForm) {
+        friendService.rejectFriendshipRequest(user, userIdForm.getUserId());
     }
 }

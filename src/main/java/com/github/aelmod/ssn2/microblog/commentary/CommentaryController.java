@@ -36,13 +36,16 @@ public class CommentaryController {
         return commentaryService.findBy(commentarySpecification);
     }
 
-    @PostMapping("add")
-    public void add(@CurrentUser User user, @RequestBody @Valid CommentaryForm commentaryForm,
+    @PostMapping
+    @JsonView(Commentary.WithUser.class)
+    public Commentary add(@CurrentUser User user, @RequestBody @Valid CommentaryForm commentaryForm,
                     @PathVariable int microblogId) {
         checkCommentaryPrivacySettings(user, microblogId);
         commentaryForm.setUser(user);
         commentaryForm.setMicroblogId(microblogId);
-        commentaryService.save(commentaryForm.toCommentary());
+        Commentary commentary = commentaryForm.toCommentary();
+        commentaryService.save(commentary);
+        return commentaryService.findById(commentary.getId());
     }
 
     private void checkCommentaryPrivacySettings(@CurrentUser User user, @PathVariable int microblogId) {

@@ -1,12 +1,16 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/users")
@@ -29,6 +33,9 @@ public class UserController {
     @JsonView(User.FullView.class)
     public User getById(@CurrentUser User currentUser, @PathVariable int userId) {
         User userByPk = userService.getByPk(userId);
+        List<Microblog> microblogs = userByPk.getMicroblogs();
+        if (Objects.nonNull(microblogs))
+            microblogs.sort(Collections.reverseOrder(Comparator.comparing(Microblog::getCreationTime)));
         if (userByPk.getIgnoreList().contains(currentUser)) {
             User user = new User();
             user.setName(userByPk.getName());

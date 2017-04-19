@@ -1,55 +1,38 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Microblog</title>
-</head>
-<body>
-<div ng-controller="MicroblogController" ng-init="init(2)">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6"><br><br><br>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <p><a ui-sref="user-view({userId: microblog.user.id})">{{microblog.user.name}}</a></p>
-                        <p>{{microblog.text}}</p>
-                        <p>{{microblog.creationTime}}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6"><br><br><br>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p><a ui-sref="user-view({userId: microblog.user.id})">{{$ctrl.microblog.user.name}}</a></p>
+                    <p>{{$ctrl.microblog.text}}</p>
+                    <p>{{$ctrl.microblog.creationTime}}</p>
 
-                        <hr>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="col-md-15">
-
-                                    <div ng-repeat="commentary in microblog.commentaries">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <p><a ui-sref="user-view({userId: commentary.user.id})">{{commentary.user.name}}</a>
-                                                </p>
-                                                <p>{{commentary.text}}</p>
-                                                <p>{{commentary.creationTime}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div ng-controller="CommentaryController">
-                                        <div class="flexContainer">
-                                            <label for="comment" class="sr-only">Comment</label>
-                                            <input type="text" ng-model="commentaryForm.text" class="form-control"
-                                                   id="comment"
-                                                   name="comment" placeholder="Leave a comment...">
-
-                                            <button ng-click="addComment(microblog.id, commentaryForm)" class="btn"
-                                                    style="float: right;">
-                                                <span class="glyphicon glyphicon-menu-right"></span>
-                                            </button>
-                                        </div>
+                    <hr>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div ng-repeat="commentary in $ctrl.microblog.commentaries">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <p>
+                                            <a ui-sref="user-view({userId: commentary.user.id})">{{commentary.user.name}}</a>
+                                        </p>
+                                        <p>{{commentary.text}}</p>
+                                        <p>{{commentary.creationTime}}</p>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="flexContainer">
+                                <label for="comment" class="sr-only">Comment</label>
+                                <input type="text" ng-model="commentaryForm.text" class="form-control"
+                                       id="comment"
+                                       name="comment" placeholder="Leave a comment...">
+
+                                <button ng-click="$ctrl.addComment($ctrl.microblog.id, commentaryForm)" class="btn"
+                                        style="float: right;"
+                                        type="button">
+                                    <span class="glyphicon glyphicon-menu-right"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -58,5 +41,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
