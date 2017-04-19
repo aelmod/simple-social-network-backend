@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css"
+          href="https://rawgit.com/alexk111/ngImgCrop/master/compile/unminified/ng-img-crop.css">
+
+    <style type="text/css">
+        .cropArea {
+            background: #E4E4E4;
+            overflow: hidden;
+            width: 500px;
+            height: 350px;
+        }
+
+        form .progress {
+            line-height: 15px;
+        }
+
+        .progress {
+            display: inline-block;
+            width: 100px;
+            border: 3px groove #CCC;
+        }
+
+        .progress div {
+            font-size: smaller;
+            background: orange;
+            width: 0;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body ng-app="fileUpload" ng-controller="UploadController">
+<form name="myForm">
+    <div>Crop Image and Upload</div>
+    <button ngf-select ng-model="picFile" accept="image/*">
+        Select Picture
+    </button>
+    <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
+         class="cropArea">
+        <img-crop image="picFile  | ngfDataUrl"
+                  result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+        </img-crop>
+    </div>
+    <div>
+        <img ng-src="{{croppedDataUrl}}"/>
+    </div>
+    <button ng-click="upload(croppedDataUrl, picFile.name)">Submit</button>
+
+    <span class="progress" ng-show="progress >= 0">
+          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+        </span>
+    <span ng-show="result">Upload Successful</span>
+    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+</form>
+</body>
+</html>

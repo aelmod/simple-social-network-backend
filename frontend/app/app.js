@@ -24,6 +24,12 @@ app
                 templateUrl: 'app/login/login.html'
             })
             .state({
+                name: 'upload',
+                url: '/upload',
+                controller: 'UploadController',
+                templateUrl: 'app/upload/upload-view.html'
+            })
+            .state({
                 name: 'register',
                 url: '/register',
                 controller: 'RegisterController',
