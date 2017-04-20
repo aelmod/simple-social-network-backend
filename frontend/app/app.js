@@ -18,10 +18,10 @@ angular
                 templateUrl: 'app/home/home.html'
             })
             .state({
-                name: 'microblog',
-                url: '/microblog/{microblogId:int}',
-                // controller: 'MicroblogController',
-                templateUrl: 'app/microblog/microblog-view.html'
+                name: 'conversation',
+                url: '/conversation',
+                controller: 'ConversationController',
+                templateUrl: 'app/conversation/conversation-view.html'
             })
             .state({
                 name: 'login',

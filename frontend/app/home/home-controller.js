@@ -3,9 +3,13 @@ angular
     .controller('HomeController', HomeController);
 
 
-function HomeController($scope, $http, $location) {
+function HomeController($http, $location) {
     if (localStorage.token === undefined) $location.path('/login');
     else {
-        $location.path('/')
+        $http
+            .get('/api/users/currentUser')
+            .then((res) => {
+                $location.path('/user/' + res.data.id);
+            });
     }
 }
