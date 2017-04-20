@@ -17,7 +17,6 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class FirstSeed {
@@ -91,21 +90,21 @@ public class FirstSeed {
             microblogService.create(microblog);
         }
 
-        for (int i = 0; i < USER_COUNT; i++) {
-            User user = users.get(i);
-            User friend = users.get((int) (Math.random() * USER_COUNT));
-            if (Objects.equals(user.getId(), friend.getId())) continue;
-            friendService.makeFriends(user, friend);
-        }
+//        for (int i = 0; i < USER_COUNT; i++) {
+//            User user = users.get(i);
+//            User friend = users.get((int) (Math.random() * USER_COUNT));
+//            if (Objects.equals(user.getId(), friend.getId())) continue;
+//            friendService.makeFriends(user, friend);
+//        }
 
-        User user1 = new User();
-        user1.setId(3);
-        userService.ignore(user1, 2);
-
-
-        User user2 = new User();
-        user2.setId(2);
-        friendService.requestFriendship(user2, 3);
+//        User user1 = new User();
+//        user1.setId(3);
+//        userService.ignore(user1, 2);
+//
+//
+//        User user2 = new User();
+//        user2.setId(2);
+//        friendService.requestFriendship(user2, 3);
 
 //        conversationService.create(user2, user1.getId());
     }
