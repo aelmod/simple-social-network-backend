@@ -83,12 +83,12 @@
                                    placeholder="address">
                         </div>
 
-                        <div ng-controller="CountryController">
+                        <div>
                             <br>
                             <div class="form-group">
                                 <label for="reg_countryId" class="sr-only">Choose your Country</label>
                                 <select ng-model="userRegisterForm.countryId" class="form-control" id="reg_countryId"
-                                        name="reg_countryId">
+                                        name="reg_countryId" ng-change="getCities(userRegisterForm.countryId)">
                                     <option disabled value="">Choose your Country</option>
                                     <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}
                                     </option>
@@ -97,7 +97,7 @@
                             <br>
                         </div>
 
-                        <div ng-controller="CityController">
+                        <div>
                             <div class="form-group">
                                 <label for="reg_cityId" class="sr-only">Choose your City</label>
                                 <select ng-model="userRegisterForm.cityId" class="form-control" id="reg_cityId"

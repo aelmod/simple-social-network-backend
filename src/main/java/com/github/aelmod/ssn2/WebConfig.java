@@ -14,7 +14,10 @@ import java.util.List;
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Value("${user.picture.path}")
-    private String path;
+    private String userPicturePath;
+
+    @Value("${api.user.picture.path}")
+    private String apiUserPicturePath;
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -24,8 +27,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if (!registry.hasMappingForPattern("/api/static/pics/**")) {
-            registry.addResourceHandler("/api/static/pics/**").addResourceLocations("file://" + path);
+        if (!registry.hasMappingForPattern(apiUserPicturePath + "**")) {
+            registry.addResourceHandler(apiUserPicturePath + "**").addResourceLocations("file://" + userPicturePath);
         }
     }
 }

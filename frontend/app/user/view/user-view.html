@@ -13,7 +13,7 @@
                                          id="profile-image1" class="img-circle img-responsive">
 
                                     <input id="profile-image-upload" class="hidden" type="file">
-                                    <div style="color:#999;"><a ui-sref="upload">click here to change profile image</a>
+                                    <div ng-hide="user.id !== currentUser.id" style="color:#999;"><a ui-sref="upload">click here to change profile image</a>
                                     </div>
                                 </div>
                                 <br>

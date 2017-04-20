@@ -26,6 +26,9 @@ public class PictureService {
     @Value("${user.picture.path}")
     private String PATH;
 
+    @Value("${api.user.picture.path}")
+    private String apiUserPicturePath;
+
     private File dir;
 
     private final String IMAGE_FORMAT = "png";
@@ -53,7 +56,7 @@ public class PictureService {
     @Transactional
     public Picture getByPk(Integer id) {
         Optional<Picture> pictureOptional = pictureRepository.findOneByPk(id);
-        pictureOptional.ifPresent(picture -> picture.setFullPath("/api/static/pics/" + picture.getId() + "." + IMAGE_FORMAT));
+        pictureOptional.ifPresent(picture -> picture.setFullPath(apiUserPicturePath + picture.getId() + "." + IMAGE_FORMAT));
         return pictureOptional.orElseThrow(EntityNotFoundException::new);
     }
 
