@@ -16,5 +16,4 @@
 *.iml
 *.ipr
 
-bower_components/
 node_modules/
