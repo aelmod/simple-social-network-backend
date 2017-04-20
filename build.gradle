@@ -35,7 +35,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-validation')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('mysql:mysql-connector-java')
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.0.0'
     compile('org.projectlombok:lombok')
 
     runtime('org.springframework.boot:spring-boot-devtools')
