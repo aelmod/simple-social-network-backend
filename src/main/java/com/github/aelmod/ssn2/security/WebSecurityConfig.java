@@ -30,7 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/users/register")
                 .antMatchers(HttpMethod.GET, "/api/countries")
                 .antMatchers(HttpMethod.GET, "/api/cities")
-                .antMatchers(HttpMethod.GET, "/api/static/pics/**");
+                .antMatchers(HttpMethod.GET, "/api/static/pics/**")
+                .requestMatchers(request -> !request.getRequestURI().startsWith("/api"));
     }
 
     @Override

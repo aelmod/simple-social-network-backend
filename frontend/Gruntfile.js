@@ -26,8 +26,11 @@ module.exports = function (grunt) {
                 proxies: [
                     {
                         context: '/api',
-                        host: 'localhost',
-                        port: 8080
+                        host: 'simple-social-net.herokuapp.com',
+                        port: 80,
+                        headers: {
+                            host: 'simple-social-net.herokuapp.com'
+                        }
                     },
                     {
                         context: '/',
