@@ -26,6 +26,7 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonView(FullView.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conversation_id")
     private Conversation conversation;
@@ -39,5 +40,5 @@ public class Message {
 
     public interface MinimalView {}
 
-    public interface FullView extends MinimalView, User.MinimalView {}
+    public interface FullView extends MinimalView, User.MinimalView, Conversation.MinimalView {}
 }
