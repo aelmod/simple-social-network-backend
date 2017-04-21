@@ -1,5 +1,7 @@
 package com.github.aelmod.ssn2.statistic;
 
+import com.github.aelmod.ssn2.security.CurrentUser;
+import com.github.aelmod.ssn2.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ public class StatisticController {
     }
 
     @PostMapping
-    public List<Long> getStatisticPeer(Date date) {
-        return statisticRepository.getMessagesFromCertainTime(date);
+    public List<Long> getStatisticPeer(Date date, @CurrentUser User user) {
+        return statisticRepository.getMessagesFromCertainTime(date, user);
     }
 }
