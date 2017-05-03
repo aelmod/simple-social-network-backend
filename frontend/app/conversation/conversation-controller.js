@@ -2,7 +2,7 @@ angular
     .module('ssnApp')
     .controller('ConversationController', ConversationController);
 
-function ConversationController($scope, $http, $timeout) {
+function ConversationController($scope, $http) {
     $http
         .get('/api/conversations')
         .then((res) => {
