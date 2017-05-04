@@ -41,8 +41,8 @@ public class UsernamePasswordVerificationCodeAuthenticationProvider implements A
 
         if (Objects.equals(authentication.getPrincipal(), userByUsername.getUsername())
                 && bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), userByUsername.getPassword())
-                //&& new TimeBasedOneTimePassword().isVerificationCodeValid(userByUsername.getSecret(),
-                //Integer.parseInt(usernamePasswordVerificationCodeAuthentication.getVerificationCode()))
+//                && new TimeBasedOneTimePassword().isVerificationCodeValid(userByUsername.getSecret(),
+//                Integer.parseInt(usernamePasswordVerificationCodeAuthentication.getVerificationCode()))) { //another realisation of 2fa
                 && new Totp(userByUsername.getSecret()).verify(usernamePasswordVerificationCodeAuthentication.getVerificationCode())) {
             String token = jwtAuthHelper.createJwt(userByUsername.getId());
             return new SsnJwtAuthentication(token);
