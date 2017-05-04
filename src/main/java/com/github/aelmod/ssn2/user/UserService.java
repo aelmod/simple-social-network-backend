@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +15,11 @@ import java.util.Objects;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private static String QR_PREFIX =
+            "https://chart.googleapis.com/chart?chs=200x200&chld=M%%7C0&cht=qr&chl=";
+
+    private static String APP_NAME = "ElectronicHealthCardSystem";
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -35,14 +42,24 @@ public class UserService {
     }
 
     @Transactional
-    public void save(User user) {
+    public String save(User user) {
         if (!isUsernameExists(user.getUsername())) {
             String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
             user.setPassword(encodedPassword);
             userRepository.persist(user);
+            return generateQRUrl(user);
         } else {
             throw new UserAlreadyExistsException("Username already exists");
         }
+    }
+
+    private String generateQRUrl(User user) {
+        try {
+            return QR_PREFIX + URLEncoder.encode(String.format("otpauth://totp/%s:%s?secret=%s&issuer=%s", APP_NAME, user.getEmail(), user.getSecret(), APP_NAME), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private boolean isUsernameExists(String username) {

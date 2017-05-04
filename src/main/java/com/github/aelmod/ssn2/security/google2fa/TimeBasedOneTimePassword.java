@@ -1,31 +1,14 @@
 package com.github.aelmod.ssn2.security.google2fa;
 
-import com.github.aelmod.ssn2.user.User;
 import org.apache.commons.codec.binary.Base32;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class TimeBasedOneTimePassword {
-
-    private static String QR_PREFIX =
-            "https://chart.googleapis.com/chart?chs=200x200&chld=M%%7C0&cht=qr&chl=";
-
-    private static String APP_NAME = "ElectronicHealthCardSystem";
-
-    public String generateQRUrl(User user) {
-        try {
-            return QR_PREFIX + URLEncoder.encode(String.format("otpauth://totp/%s:%s?secret=%s&issuer=%s", APP_NAME, user.getEmail(), user.getSecret(), APP_NAME), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     private static final int VARIANCE = 5;
 

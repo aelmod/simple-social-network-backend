@@ -39,11 +39,10 @@ public class UsernamePasswordVerificationCodeAuthenticationProvider implements A
         UsernamePasswordVerificationCodeAuthentication usernamePasswordVerificationCodeAuthentication =
                 (UsernamePasswordVerificationCodeAuthentication) authentication;
 
-//        new TimeBasedOneTimePassword().isVerificationCodeValid(userByUsername.getSecret(),
-//                Integer.parseInt(usernamePasswordVerificationCodeAuthentication.getVerificationCode()))
-
         if (Objects.equals(authentication.getPrincipal(), userByUsername.getUsername())
                 && bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), userByUsername.getPassword())
+                //&& new TimeBasedOneTimePassword().isVerificationCodeValid(userByUsername.getSecret(),
+                //Integer.parseInt(usernamePasswordVerificationCodeAuthentication.getVerificationCode()))
                 && new Totp(userByUsername.getSecret()).verify(usernamePasswordVerificationCodeAuthentication.getVerificationCode())) {
             String token = jwtAuthHelper.createJwt(userByUsername.getId());
             return new SsnJwtAuthentication(token);

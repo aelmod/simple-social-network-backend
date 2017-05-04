@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2;
 
 import com.github.aelmod.ssn2.security.BadCredentialsException;
+import com.github.aelmod.ssn2.security.google2fa.VerificationCodeException;
 import com.github.aelmod.ssn2.user.BadUserBehaviorException;
 import com.github.aelmod.ssn2.user.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,12 @@ public class ExceptionHandlerController {
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(BadUserBehaviorException.class)
     public ExceptionInfo badUserBehaviorHandler(HttpServletRequest request, PersistenceException e) {
+        return new ExceptionInfo(request.getRequestURI(), e.getMessage());
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(VerificationCodeException.class)
+    public ExceptionInfo badVerificationCodeHandler(HttpServletRequest request, PersistenceException e) {
         return new ExceptionInfo(request.getRequestURI(), e.getMessage());
     }
 }

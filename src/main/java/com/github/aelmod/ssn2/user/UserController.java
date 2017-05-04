@@ -2,7 +2,6 @@ package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.aelmod.ssn2.security.CurrentUser;
-import com.github.aelmod.ssn2.security.google2fa.TimeBasedOneTimePassword;
 import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +42,6 @@ public class UserController {
     public String registerUser(@RequestBody @Valid UserRegisterForm registerForm) {
         User registeredUser = registerForm.toUser();
         registeredUser.setSecret(Base32.random());
-        userService.save(registeredUser);
-        User user = userService.getByPk(registeredUser.getId());
-        return new TimeBasedOneTimePassword().generateQRUrl(user);
+        return userService.save(registeredUser);
     }
 }
