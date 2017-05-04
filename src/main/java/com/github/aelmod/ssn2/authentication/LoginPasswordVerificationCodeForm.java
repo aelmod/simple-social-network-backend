@@ -7,11 +7,14 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class LoginPassword {
+public class LoginPasswordVerificationCodeForm {
 
     @NotNull
     private String login;
 
     @NotNull
     private String password;
+
+    @NotNull
+    private String verificationCode;
 }

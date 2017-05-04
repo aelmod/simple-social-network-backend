@@ -2,9 +2,9 @@ package com.github.aelmod.ssn2.security;
 
 import com.github.aelmod.ssn2.user.User;
 import com.github.aelmod.ssn2.user.UserService;
+import org.jboss.aerogear.security.otp.Totp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
 
 @Component
-public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
+public class UsernamePasswordVerificationCodeAuthenticationProvider implements AuthenticationProvider {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -23,7 +23,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     private final JwtAuthHelper jwtAuthHelper = new JwtAuthHelper();
 
     @Autowired
-    public UsernamePasswordAuthenticationProvider(UserService userService) {
+    public UsernamePasswordVerificationCodeAuthenticationProvider(UserService userService) {
         this.userService = userService;
     }
 
@@ -36,8 +36,15 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
             throw new BadCredentialsException("auth error");
         }
 
+        UsernamePasswordVerificationCodeAuthentication usernamePasswordVerificationCodeAuthentication =
+                (UsernamePasswordVerificationCodeAuthentication) authentication;
+
+//        new TimeBasedOneTimePassword().isVerificationCodeValid(userByUsername.getSecret(),
+//                Integer.parseInt(usernamePasswordVerificationCodeAuthentication.getVerificationCode()))
+
         if (Objects.equals(authentication.getPrincipal(), userByUsername.getUsername())
-                && bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), userByUsername.getPassword())) {
+                && bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), userByUsername.getPassword())
+                && new Totp(userByUsername.getSecret()).verify(usernamePasswordVerificationCodeAuthentication.getVerificationCode())) {
             String token = jwtAuthHelper.createJwt(userByUsername.getId());
             return new SsnJwtAuthentication(token);
         }
@@ -46,6 +53,6 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.equals(UsernamePasswordAuthenticationToken.class);
+        return aClass.equals(UsernamePasswordVerificationCodeAuthentication.class);
     }
 }

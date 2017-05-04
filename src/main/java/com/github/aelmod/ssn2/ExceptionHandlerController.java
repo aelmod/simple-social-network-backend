@@ -3,7 +3,6 @@ package com.github.aelmod.ssn2;
 import com.github.aelmod.ssn2.security.BadCredentialsException;
 import com.github.aelmod.ssn2.user.BadUserBehaviorException;
 import com.github.aelmod.ssn2.user.UserAlreadyExistsException;
-import com.github.aelmod.ssn2.user.settings.NotRelevantUserPrivacySettingsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,12 +36,6 @@ public class ExceptionHandlerController {
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(BadUserBehaviorException.class)
     public ExceptionInfo badUserBehaviorHandler(HttpServletRequest request, PersistenceException e) {
-        return new ExceptionInfo(request.getRequestURI(), e.getMessage());
-    }
-
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)
-    @ExceptionHandler(NotRelevantUserPrivacySettingsException.class)
-    public ExceptionInfo notRelevantUserPrivacySettingsHandler(HttpServletRequest request, PersistenceException e) {
         return new ExceptionInfo(request.getRequestURI(), e.getMessage());
     }
 }

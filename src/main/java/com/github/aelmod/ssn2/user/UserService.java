@@ -35,16 +35,6 @@ public class UserService {
     }
 
     @Transactional
-    public void ignore(User ignorant, Integer ignoredUserId) {
-        User ignoredUser = getByPk(ignoredUserId);
-        ignorant = getByPk(ignorant.getId());
-        if (Objects.equals(ignorant.getId(), ignoredUser.getId()))
-            throw new BadUserBehaviorException("You can't ignore yourself");
-        ignorant.getIgnoreList().add(ignoredUser);
-        userRepository.persist(ignorant);
-    }
-
-    @Transactional
     public void save(User user) {
         if (!isUsernameExists(user.getUsername())) {
             String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());

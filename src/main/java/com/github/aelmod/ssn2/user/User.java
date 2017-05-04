@@ -2,14 +2,8 @@ package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.aelmod.ssn2.album.picture.Picture;
 import com.github.aelmod.ssn2.city.City;
-import com.github.aelmod.ssn2.conversation.Conversation;
-import com.github.aelmod.ssn2.conversation.message.Message;
 import com.github.aelmod.ssn2.country.Country;
-import com.github.aelmod.ssn2.microblog.Microblog;
-import com.github.aelmod.ssn2.microblog.commentary.Commentary;
-import com.github.aelmod.ssn2.user.settings.UserSettings;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,9 +11,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @ToString
 @NoArgsConstructor
@@ -67,49 +59,7 @@ public class User implements Serializable {
     @JsonView(AllPrimitivesView.class)
     private String address;
 
-    @OneToMany(mappedBy = "user")
-    private List<Message> messages = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "conversation_user_map",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "conversation_id")}
-    )
-    private List<Conversation> conversations = new ArrayList<>();
-
-    @JsonView(FullView.class)
-    @OneToMany(mappedBy = "user")
-    private List<Microblog> microblogs = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Commentary> commentaries = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Picture> pictures = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "friends",
-            joinColumns = {@JoinColumn(name = "user1_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user2_id")}
-    )
-    private List<User> friends = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "friendship_requests_bucket",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "requested_friendship_user_id")}
-    )
-    private List<User> friendRequestsBucket = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "ignore_list",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "ignored_user_id")}
-    )
-    private List<User> ignoreList = new ArrayList<>();
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private UserSettings userSettings;
+    private String secret;
 
     public User(String name, String username, String password, Date birthday, String email, String phone,
                 Country country, City city, String address) {
@@ -129,5 +79,5 @@ public class User implements Serializable {
 
     public interface AllPrimitivesView extends MinimalView {}
 
-    public interface FullView extends AllPrimitivesView, Country.MinimumView, City.MinimumView, Microblog.MinimalView {}
+    public interface FullView extends AllPrimitivesView, Country.MinimumView, City.MinimumView {}
 }

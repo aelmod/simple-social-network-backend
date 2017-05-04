@@ -1,16 +1,14 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.security.CurrentUser;
+import com.github.aelmod.ssn2.security.google2fa.TimeBasedOneTimePassword;
+import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,17 +29,8 @@ public class UserController {
 
     @GetMapping("{userId}")
     @JsonView(User.FullView.class)
-    public User getById(@CurrentUser User currentUser, @PathVariable int userId) {
-        User userByPk = userService.getByPk(userId);
-        List<Microblog> microblogs = userByPk.getMicroblogs();
-        if (Objects.nonNull(microblogs))
-            microblogs.sort(Collections.reverseOrder(Comparator.comparing(Microblog::getCreationTime)));
-        if (userByPk.getIgnoreList().contains(currentUser)) {
-            User user = new User();
-            user.setName(userByPk.getName());
-            return user;
-        }
-        return userByPk;
+    public User getById(@PathVariable int userId) {
+        return userService.getByPk(userId);
     }
 
     @GetMapping("currentUser")
@@ -50,13 +39,12 @@ public class UserController {
         return user;
     }
 
-    @PutMapping("{ignoredUserId}/ignore")
-    public void addUserToIgnoreList(@CurrentUser User currentUser, @PathVariable Integer ignoredUserId) {
-        userService.ignore(currentUser, ignoredUserId);
-    }
-
     @PostMapping("register")
-    public void registerUser(@RequestBody @Valid UserRegisterForm registerForm) {
-        userService.save(registerForm.toUser());
+    public String registerUser(@RequestBody @Valid UserRegisterForm registerForm) {
+        User registeredUser = registerForm.toUser();
+        registeredUser.setSecret(Base32.random());
+        userService.save(registeredUser);
+        User user = userService.getByPk(registeredUser.getId());
+        return new TimeBasedOneTimePassword().generateQRUrl(user);
     }
 }

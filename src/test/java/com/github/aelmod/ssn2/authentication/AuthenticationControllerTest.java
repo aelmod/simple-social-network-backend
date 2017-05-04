@@ -19,9 +19,9 @@ public class AuthenticationControllerTest {
     @Test
     public void loginBadPassFailure() throws Exception {
         try {
-            LoginPassword loginPassword = getLoginPassword();
-            loginPassword.setPassword("badPass");
-            authEndpoint.login(loginPassword);
+            LoginPasswordVerificationCodeForm loginPasswordVerificationCodeForm = getLoginPassword();
+            loginPasswordVerificationCodeForm.setPassword("badPass");
+            authEndpoint.login(loginPasswordVerificationCodeForm);
             fail();
         } catch (HttpClientErrorException e) {
             assertEquals(HttpStatus.FORBIDDEN, e.getStatusCode());
@@ -31,17 +31,17 @@ public class AuthenticationControllerTest {
     @Test
     public void loginFailure() throws Exception {
         try {
-            authEndpoint.login(new LoginPassword());
+            authEndpoint.login(new LoginPasswordVerificationCodeForm());
             fail();
         } catch (HttpClientErrorException e) {
             assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
         }
     }
 
-    private LoginPassword getLoginPassword() {
-        LoginPassword loginPassword = new LoginPassword();
-        loginPassword.setLogin("user1");
-        loginPassword.setPassword("pass1");
-        return loginPassword;
+    private LoginPasswordVerificationCodeForm getLoginPassword() {
+        LoginPasswordVerificationCodeForm loginPasswordVerificationCodeForm = new LoginPasswordVerificationCodeForm();
+        loginPasswordVerificationCodeForm.setLogin("user1");
+        loginPasswordVerificationCodeForm.setPassword("pass1");
+        return loginPasswordVerificationCodeForm;
     }
 }

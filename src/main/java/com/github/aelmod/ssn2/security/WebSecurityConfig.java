@@ -15,11 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
+    private UsernamePasswordVerificationCodeAuthenticationProvider usernamePasswordVerificationCodeAuthenticationProvider;
+
 
     @Autowired
-    public WebSecurityConfig(UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider) {
-        this.usernamePasswordAuthenticationProvider = usernamePasswordAuthenticationProvider;
+    public WebSecurityConfig(UsernamePasswordVerificationCodeAuthenticationProvider usernamePasswordVerificationCodeAuthenticationProvider) {
+        this.usernamePasswordVerificationCodeAuthenticationProvider = usernamePasswordVerificationCodeAuthenticationProvider;
     }
 
     @Override
@@ -29,8 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/login")
                 .antMatchers(HttpMethod.POST, "/api/users/register")
                 .antMatchers(HttpMethod.GET, "/api/countries/**")
-                .antMatchers(HttpMethod.GET, "/api/cities")
-                .antMatchers(HttpMethod.GET, "/api/static/pics/**");
+                .antMatchers(HttpMethod.GET, "/api/cities");
     }
 
     @Override
@@ -51,6 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(usernamePasswordAuthenticationProvider);
+        auth.authenticationProvider(usernamePasswordVerificationCodeAuthenticationProvider);
     }
 }

@@ -1,9 +1,9 @@
 package com.github.aelmod.ssn2.authentication;
 
 import com.github.aelmod.ssn2.security.SsnJwtAuthentication;
+import com.github.aelmod.ssn2.security.UsernamePasswordVerificationCodeAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +25,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("login")
-    public String login(@RequestBody @Valid LoginPassword loginPassword) {
-        Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginPassword.getLogin(), loginPassword.getPassword())
-        );
+    public String login(@RequestBody @Valid LoginPasswordVerificationCodeForm loginPasswordVerificationCodeForm) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordVerificationCodeAuthentication(
+                loginPasswordVerificationCodeForm.getLogin(),
+                loginPasswordVerificationCodeForm.getPassword(),
+                loginPasswordVerificationCodeForm.getVerificationCode()
+        ));
         return ((SsnJwtAuthentication) authenticate).getToken();
     }
 }
