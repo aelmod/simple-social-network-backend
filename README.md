@@ -1,5 +1,4 @@
-# Spring Boot, Spring Security, JWT, 2fa example
-
+# Spring Boot + Spring Security + Hibernate + Validation API + JWT + 2fa
 ## Example user: 
 
 Username: test
