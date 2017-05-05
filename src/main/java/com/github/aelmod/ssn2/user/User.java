@@ -1,15 +1,12 @@
 package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,28 +19,24 @@ public class User implements Serializable {
     @JsonView(MinimalView.class)
     private Integer id;
 
+    @NonNull
     @JsonView(MinimalView.class)
-    private String name;
+    private String fullName;
 
+    @NonNull
+    @JsonView(AllPrimitivesView.class)
+    private String email;
+
+    @NonNull
     @Column(nullable = false)
     @JsonView(MinimalView.class)
     private String username;
 
+    @NonNull
     @Column(nullable = false)
     private String password;
 
-    @JsonView(AllPrimitivesView.class)
-    private String email;
-
     private String secret;
-
-    public User(String name, String username, String password, String email) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
 
     public interface MinimalView {}
 

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Objects;
+import javax.persistence.EntityNotFoundException;
 
 @Component
 public class FirstSeed {
@@ -20,11 +20,12 @@ public class FirstSeed {
 
     @PostConstruct
     public void initData() {
-        User user = new User("test", "test", "pass", "test@test.com");
+        User user = new User("test", "test@test.com", "test", "pass");
         user.setSecret("D32K7NDRILUMMXP6");
-        if (Objects.equals(user.getName(), userService.getUserByUsername("test").getName())) {
-            return;
+        try {
+            userService.getUserByUsername("test");
+        } catch (EntityNotFoundException e) {
+            userService.save(user);
         }
-        userService.save(user);
     }
 }

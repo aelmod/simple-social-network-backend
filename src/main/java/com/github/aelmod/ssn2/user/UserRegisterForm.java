@@ -14,7 +14,7 @@ import java.util.Objects;
 public class UserRegisterForm {
 
     @NotNull
-    private String name;
+    private String fullName;
 
     @NotNull
     @Size(min = 4, max = 12)
@@ -36,6 +36,6 @@ public class UserRegisterForm {
     }
 
     public User toUser() {
-        return new User(name, username, password, email);
+        return new User(fullName, email, username, password);
     }
 }
