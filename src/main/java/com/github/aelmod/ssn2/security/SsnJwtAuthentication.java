@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class SsnJwtAuthentication implements Authentication {
 
-    private String token;
+    private final String token;
 
     public SsnJwtAuthentication(String token) {
         this.token = token;

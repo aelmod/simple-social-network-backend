@@ -16,10 +16,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private static String QR_PREFIX =
+    private final static String QR_PREFIX =
             "https://chart.googleapis.com/chart?chs=200x200&chld=M%%7C0&cht=qr&chl=";
 
-    private static String APP_NAME = "ElectronicHealthCardSystem";
+    private final static String APP_NAME = "ElectronicHealthCardSystem";
 
     @Autowired
     public UserService(UserRepository userRepository) {

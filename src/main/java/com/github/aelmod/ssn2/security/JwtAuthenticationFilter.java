@@ -1,8 +1,6 @@
 package com.github.aelmod.ssn2.security;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.*;
