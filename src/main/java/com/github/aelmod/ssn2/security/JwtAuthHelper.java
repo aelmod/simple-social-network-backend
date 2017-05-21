@@ -15,9 +15,9 @@ class JwtAuthHelper {
 
     private static final String SIGNING_KEY = "^@()LolKekCheburek@^($%*$%(((";
 
-    private static final Algorithm algorithm = Algorithm.HMAC512(SIGNING_KEY.getBytes());
+    private static final Algorithm ALGORITHM = Algorithm.HMAC512(SIGNING_KEY.getBytes());
 
-    private static final Date expiresAt = Date.valueOf(LocalDate.from(LocalDate.now()).plusMonths(1L));
+    private static final long JWT_LIFETIME_IN_MONTHS = 1L;
 
     public static final String CLAIM_USER_ID = "userId";
 
@@ -28,15 +28,19 @@ class JwtAuthHelper {
                 .withIssuer(ISSUER)
                 .withClaim(CLAIM_USER_ID, userId)
                 .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
-                .withExpiresAt(expiresAt)
-                .sign(algorithm);
+                .withExpiresAt(getExpiresAt())
+                .sign(ALGORITHM);
     }
 
     static DecodedJWT verifyToken(String token) {
-        JWTVerifier verifier = JWT.require(algorithm)
+        JWTVerifier verifier = JWT.require(ALGORITHM)
                 .withIssuer(ISSUER)
-                .acceptExpiresAt(expiresAt.getTime())
+                .acceptExpiresAt(getExpiresAt().getTime())
                 .build();
         return verifier.verify(token);
+    }
+
+    private static Date getExpiresAt() {
+        return Date.valueOf(LocalDate.from(LocalDate.now()).plusMonths(JWT_LIFETIME_IN_MONTHS));
     }
 }
