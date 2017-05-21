@@ -54,9 +54,8 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-        JwtAuthHelper jwtAuthHelper = new JwtAuthHelper();
-        DecodedJWT decodedJWT = jwtAuthHelper.verifyToken((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Integer id = decodedJWT.getClaim(jwtAuthHelper.CLAIM_USER_ID_NAMING).asInt();
+        DecodedJWT decodedJWT = JwtAuthHelper.verifyToken((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Integer id = decodedJWT.getClaim(JwtAuthHelper.CLAIM_USER_ID).asInt();
         return userService.getByPk(id);
     }
 }

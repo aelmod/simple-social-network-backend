@@ -10,9 +10,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,7 +40,7 @@ public class Microblog implements Serializable {
 
     @OneToMany(mappedBy = "microblog")
     @JsonView(FullView.class)
-    private Set<Commentary> commentaries = new HashSet<>();
+    private List<Commentary> commentaries = new ArrayList<>();
 
     public interface MinimalView {}
 

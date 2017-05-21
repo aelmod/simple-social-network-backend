@@ -1,6 +1,7 @@
 package com.github.aelmod.ssn2.city;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,11 +31,15 @@ public class City implements Serializable {
     @JsonView(MinimumView.class)
     private String name;
 
+    @ManyToOne
+    @JsonView(FullView.class)
+    private Country country;
+
     @OneToMany(mappedBy = "city")
-    @JsonView(WithUsers.class)
+    @JsonView(FullView.class)
     private Set<User> users = new HashSet<>();
 
-    public interface WithUsers extends MinimumView, User.MinimalView {}
+    public interface FullView extends MinimumView, User.MinimalView {}
 
     public interface MinimumView {}
 }

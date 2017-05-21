@@ -25,8 +25,8 @@ repositories {
 }
 
 dependencies {
-    compile('com.auth0:java-jwt:3.1.0')
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.8.7')
+    compile('com.auth0:java-jwt:3.2.0')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate5')
     compile('org.flywaydb:flyway-core:4.1.2')
 
     compile('org.springframework.boot:spring-boot-starter-actuator')

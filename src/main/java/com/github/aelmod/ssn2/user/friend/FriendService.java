@@ -43,24 +43,28 @@ public class FriendService {
     public void requestFriendship(User user, Integer requestedFriendshipUserId) {
         User theoreticalFriend = userService.getByPk(requestedFriendshipUserId);
         user = userService.getByPk(user.getId());
+        user.getFriendRequestsBucket().forEach(userConsumer -> {
+            if (userConsumer.getId().equals(requestedFriendshipUserId))
+                throw new BadUserBehaviorException("You have already invited this user");
+        });
         user.getFriendRequestsBucket().add(theoreticalFriend);
         userRepository.persist(user);
     }
 
     @Transactional
     public void acceptFriendshipRequest(User user, Integer theoreticalFriendId) {
-        user.getFriendRequestsBucket().removeIf(theoreticalFriend ->
-                Objects.equals(theoreticalFriend.getId(), theoreticalFriendId));
         User theoreticalFriend = userService.getByPk(theoreticalFriendId);
+        theoreticalFriend.getFriendRequestsBucket().remove(user);
         makeFriends(user, theoreticalFriend);
         userRepository.persist(user);
+        userRepository.persist(theoreticalFriend);
     }
 
     @Transactional
     public void rejectFriendshipRequest(User user, Integer theoreticalFriendId) {
-        user.getFriendRequestsBucket().removeIf(theoreticalFriend ->
-                Objects.equals(theoreticalFriend.getId(), theoreticalFriendId));
-        userRepository.persist(user);
+        User theoreticalFriend = userService.getByPk(theoreticalFriendId);
+        theoreticalFriend.getFriendRequestsBucket().remove(user);
+        userRepository.persist(theoreticalFriend);
     }
 
     @Transactional(readOnly = true)

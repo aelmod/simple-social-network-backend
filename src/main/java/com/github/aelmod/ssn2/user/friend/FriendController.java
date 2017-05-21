@@ -1,14 +1,15 @@
 package com.github.aelmod.ssn2.user.friend;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.aelmod.ssn2.miscellaneous.UserIdForm;
 import com.github.aelmod.ssn2.security.CurrentUser;
 import com.github.aelmod.ssn2.user.User;
 import com.github.aelmod.ssn2.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -26,13 +27,13 @@ public class FriendController {
 
     @GetMapping("{userId}/friends")
     @JsonView(User.AllPrimitivesView.class)
-    public Set<User> getFriends(@PathVariable Integer userId) {
+    public List<User> getFriends(@PathVariable Integer userId) {
         return userService.getByPk(userId).getFriends();
     }
 
     @GetMapping("friends/outgoingRequests")
     @JsonView(User.MinimalView.class)
-    public Set<User> getOutgoingFriendshipRequests(@CurrentUser User currentUser) {
+    public List<User> getOutgoingFriendshipRequests(@CurrentUser User currentUser) {
         return currentUser.getFriendRequestsBucket();
     }
 
@@ -43,17 +44,17 @@ public class FriendController {
     }
 
     @PostMapping("friends")
-    public void requestFriendship(@CurrentUser User currentUser, @RequestBody Integer requestedFriendshipUserId) {
-        friendService.requestFriendship(currentUser, requestedFriendshipUserId);
+    public void requestFriendship(@CurrentUser User currentUser, @RequestBody @Valid UserIdForm userIdForm) {
+        friendService.requestFriendship(currentUser, userIdForm.getUserId());
     }
 
     @PutMapping("friends")
-    public void acceptFriendshipRequest(@CurrentUser User user, @RequestBody Integer userId) {
-        friendService.acceptFriendshipRequest(user, userId);
+    public void acceptFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userIdForm) {
+        friendService.acceptFriendshipRequest(user, userIdForm.getUserId());
     }
 
     @DeleteMapping("friends")
-    public void rejectFriendshipRequest(@CurrentUser User user, @RequestBody Integer userId) {
-        friendService.rejectFriendshipRequest(user, userId);
+    public void rejectFriendshipRequest(@CurrentUser User user, @RequestBody @Valid UserIdForm userIdForm) {
+        friendService.rejectFriendshipRequest(user, userIdForm.getUserId());
     }
 }

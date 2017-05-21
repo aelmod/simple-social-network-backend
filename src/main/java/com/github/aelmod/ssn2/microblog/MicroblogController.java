@@ -20,9 +20,12 @@ public class MicroblogController {
     }
 
     @PostMapping("create")
-    public void create(@CurrentUser User user, @RequestBody @Valid MicroblogForm microblogForm) {
+    @JsonView(Microblog.FullView.class)
+    public Microblog create(@CurrentUser User user, @RequestBody @Valid MicroblogForm microblogForm) {
         microblogForm.setUser(user);
-        microblogService.create(microblogForm.toMicroblog());
+        Microblog microblog = microblogForm.toMicroblog();
+        microblogService.create(microblog);
+        return microblogService.getByPk(microblog.getId());
     }
 
     @GetMapping("{microblogId}")

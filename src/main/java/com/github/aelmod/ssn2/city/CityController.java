@@ -27,7 +27,7 @@ public class CityController {
     }
 
     @GetMapping("{cityId}")
-    @JsonView(City.WithUsers.class)
+    @JsonView(City.FullView.class)
     public City getById(@PathVariable Integer cityId) {
         return cityService.getByPk(cityId);
     }

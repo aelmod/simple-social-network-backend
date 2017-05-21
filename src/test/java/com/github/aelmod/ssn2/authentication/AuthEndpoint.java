@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public class AuthEndpoint extends AbstractEndpoint {
 
-    public ResponseEntity<String> login(LoginPassword loginPassword) {
-        return restTemplate.postForEntity(baseUrl + "/login", loginPassword, String.class);
+    public ResponseEntity<String> login(LoginPasswordForm loginPasswordForm) {
+        return restTemplate.postForEntity(baseUrl + "/login", loginPasswordForm, String.class);
     }
 }

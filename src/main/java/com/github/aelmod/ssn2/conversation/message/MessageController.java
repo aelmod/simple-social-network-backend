@@ -40,11 +40,11 @@ public class MessageController {
     }
 
     private void verifyPresenceUserInConversation(@CurrentUser User user, @PathVariable Integer conversationId) {
-        List<Conversation> currentUserConversations = user.getConversations();
-        if (currentUserConversations.size() == 0) throw new EntityNotFoundException();
-        user.getConversations().forEach(conversation -> {
-            if (!Objects.equals(conversation.getId(), conversationId))
-                throw new EntityNotFoundException();
-        });
+//        List<Conversation> currentUserConversations = user.getConversations();
+//        if (currentUserConversations.size() == 0) throw new EntityNotFoundException();
+//        user.getConversations().forEach(conversation -> {
+//            if (!Objects.equals(conversation.getId(), conversationId))
+//                throw new EntityNotFoundException();
+//        });
     }
 }
