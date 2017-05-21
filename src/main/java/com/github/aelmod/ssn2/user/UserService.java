@@ -1,11 +1,13 @@
 package com.github.aelmod.ssn2.user;
 
+import com.github.aelmod.ssn2.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +16,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final RoleService roleService;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleService = roleService;
     }
 
     @Transactional(readOnly = true)
@@ -49,6 +54,7 @@ public class UserService {
         if (!isUsernameExists(user.getUsername())) {
             String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
             user.setPassword(encodedPassword);
+            user.setRoles(Collections.singletonList(roleService.findOneByName("ROLE_USER")));
             userRepository.persist(user);
         } else {
             throw new UserAlreadyExistsException("Username already exists");

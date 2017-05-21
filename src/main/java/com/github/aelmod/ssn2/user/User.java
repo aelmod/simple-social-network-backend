@@ -9,20 +9,17 @@ import com.github.aelmod.ssn2.conversation.message.Message;
 import com.github.aelmod.ssn2.country.Country;
 import com.github.aelmod.ssn2.microblog.Microblog;
 import com.github.aelmod.ssn2.microblog.commentary.Commentary;
+import com.github.aelmod.ssn2.role.Role;
 import com.github.aelmod.ssn2.user.settings.UserSettings;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @ToString
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -34,36 +31,45 @@ public class User implements Serializable {
     @JsonView(MinimalView.class)
     private Integer id;
 
+    @NonNull
     @JsonView(MinimalView.class)
-    private String name;
+    private String fullName;
 
+    @NonNull
     @Column(nullable = false)
     @JsonView(MinimalView.class)
     private String username;
 
+    @NonNull
     @Column(nullable = false)
     private String password;
 
+    @NonNull
     @JsonFormat(pattern = "dd.MM.yyyy")
     @JsonView(AllPrimitivesView.class)
     private Date birthday;
 
+    @NonNull
     @JsonView(AllPrimitivesView.class)
     private String email;
 
+    @NonNull
     @JsonView(AllPrimitivesView.class)
     private String phone;
 
+    @NonNull
     @JsonView(FullView.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @NonNull
     @JsonView(FullView.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private City city;
 
+    @NonNull
     @JsonView(AllPrimitivesView.class)
     private String address;
 
@@ -111,19 +117,14 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private UserSettings userSettings;
 
-    public User(String name, String username, String password, Date birthday, String email, String phone,
-                Country country, City city, String address) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.birthday = birthday;
-        this.email = email;
-        this.phone = phone;
-        this.country = country;
-        this.city = city;
-        this.address = address;
-    }
-
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles = Collections.emptyList();
 
     public interface MinimalView {}
 

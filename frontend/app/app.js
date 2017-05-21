@@ -26,6 +26,7 @@ angular
             .state({
                 name: 'login',
                 url: '/login',
+                controller: 'LoginController',
                 templateUrl: 'app/login/login.html'
             })
             .state({
@@ -41,17 +42,28 @@ angular
                 templateUrl: 'app/register/register.html'
             });
     })
-    .factory('authInterceptor', function ($q) {
+    .factory('authInterceptor', function ($q, $location, $rootScope) {
+        function logout() {
+            localStorage.removeItem('token');
+            $location.path('/login');
+            $rootScope.currentUser = undefined;
+        }
+
         return {
             request: function (config) {
                 if (localStorage.token !== undefined) {
                     config.headers['X-Token'] = localStorage.token;
                 }
+                if (localStorage.token === undefined) {
+                    if ($location.path() !== '/register') {
+                        logout();
+                    }
+                }
                 return config;
             },
             responseError: function (rejection) {
                 if (rejection.status === 401) {
-                    alert(rejection.data.message);
+                    logout();
                 }
                 if (rejection.status === 500) {
                     alert('Error');

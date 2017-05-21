@@ -10,7 +10,7 @@ function UserFriendBehaviorController($scope, $http) {
 
     $scope.acceptFriendshipRequest = (userId) => {
         $http
-            .put('/api/users/friends', userId)
+            .put('/api/users/friends', {userId: userId})
     };
 
     $scope.rejectFriendshipRequest = (userId) => {

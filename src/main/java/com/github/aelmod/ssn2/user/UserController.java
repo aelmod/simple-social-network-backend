@@ -38,7 +38,7 @@ public class UserController {
             microblogs.sort(Collections.reverseOrder(Comparator.comparing(Microblog::getCreationTime)));
         if (userByPk.getIgnoreList().contains(currentUser)) {
             User user = new User();
-            user.setName(userByPk.getName());
+            user.setFullName(userByPk.getFullName());
             return user;
         }
         return userByPk;

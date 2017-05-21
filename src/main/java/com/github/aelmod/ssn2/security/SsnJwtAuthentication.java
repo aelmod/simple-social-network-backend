@@ -1,18 +1,29 @@
 package com.github.aelmod.ssn2.security;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.el.MethodNotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SsnJwtAuthentication implements Authentication {
 
-    private String token;
+    private final String token;
+
+    private Collection<? extends GrantedAuthority> authorities;
 
     public SsnJwtAuthentication(String token) {
         this.token = token;
+
+        DecodedJWT decodedJWT = JwtAuthHelper.verifyToken(token);
+        String[] roles = decodedJWT.getClaim(JwtAuthHelper.ROLES).asArray(String.class);
+        authorities = Stream.of(roles)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
     }
 
     public String getToken() {
@@ -21,7 +32,7 @@ public class SsnJwtAuthentication implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return authorities;
     }
 
     @Override

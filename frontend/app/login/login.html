@@ -17,36 +17,34 @@
     <title>Document</title>
 </head>
 <body>
-<div ng-controller="LoginController">
-    <div class="text-center" style="padding:50px 0">
-        <div class="logo">login</div>
-        <div class="login-form-1">
-            <form id="login-form" class="text-left">
-                <div class="login-form-main-message"></div>
-                <div class="main-login-form">
-                    <div class="login-group">
-                        <div class="form-group">
-                            <label for="lg_username" class="sr-only">Username</label>
-                            <input type="text" ng-model="user.login" class="form-control" id="lg_username"
-                                   name="lg_username"
-                                   placeholder="username">
-                        </div>
-                        <div class="form-group">
-                            <label for="lg_password" class="sr-only">Password</label>
-                            <input type="password" ng-model="user.password" class="form-control" id="lg_password"
-                                   name="lg_password"
-                                   placeholder="password">
-                        </div>
+<div class="text-center" style="padding:50px 0">
+    <div class="logo">login</div>
+    <div class="login-form-1">
+        <form id="login-form" class="text-left">
+            <div class="login-form-main-message"></div>
+            <div class="main-login-form">
+                <div class="login-group">
+                    <div class="form-group">
+                        <label for="lg_username" class="sr-only">Username</label>
+                        <input type="text" ng-model="user.login" class="form-control" id="lg_username"
+                               name="lg_username"
+                               placeholder="username">
                     </div>
-                    <button type="submit" ng-click="send(user)" class="login-button"><i class="fa fa-chevron-right"></i>
-                    </button>
+                    <div class="form-group">
+                        <label for="lg_password" class="sr-only">Password</label>
+                        <input type="password" ng-model="user.password" class="form-control" id="lg_password"
+                               name="lg_password"
+                               placeholder="password">
+                    </div>
                 </div>
-                <div class="etc-login-form">
-                    <!--<p>forgot your password? <a href="#">click here</a></p>-->
-                    <p>new user? <a ui-sref="register">create new account</a></p>
-                </div>
-            </form>
-        </div>
+                <button type="submit" ng-click="send(user)" class="login-button"><i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="etc-login-form">
+                <!--<p>forgot your password? <a href="#">click here</a></p>-->
+                <p>new user? <a ui-sref="register">create new account</a></p>
+            </div>
+        </form>
     </div>
 </div>
 </body>
