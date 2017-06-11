@@ -29,8 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers(HttpMethod.POST, "/api/login")
                 .antMatchers(HttpMethod.POST, "/api/users/register")
-                .antMatchers(HttpMethod.GET, "/api/countries/**")
-                .antMatchers(HttpMethod.GET, "/api/cities");
+                .requestMatchers(request -> !request.getRequestURI().startsWith("/api"));
     }
 
     @Override

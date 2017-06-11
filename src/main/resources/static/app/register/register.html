@@ -1,0 +1,52 @@
+<div class="text-center" style="padding:50px 0">
+    <div ng-if="afterRegisterToken[0].qr">
+        <div class="logo">Scan QR code or register Secret Key in your Authenticator Application</div>
+    </div>
+    <div class="logo" ng-hide="afterRegisterToken[0].qr">реєстрація</div>
+    <div class="login-form-1">
+        <form id="register-form" class="text-left" ng-hide="afterRegisterToken[0]">
+            <div class="login-form-main-message"></div>
+            <div class="main-login-form">
+                <div class="login-group">
+                    <div class="form-group">
+                        <label for="reg_username" class="sr-only">Логін</label>
+                        <input type="text" ng-model="userRegisterForm.username" class="form-control"
+                               id="reg_username" name="reg_username"
+                               placeholder="Логін">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_password" class="sr-only">Пароль</label>
+                        <input type="password" ng-model="userRegisterForm.password" class="form-control"
+                               id="reg_password" name="reg_password"
+                               placeholder="Пароль">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_password_confirm" class="sr-only">Підтвердження Паролю</label>
+                        <input type="password" ng-model="userRegisterForm.confirmPassword" class="form-control"
+                               id="reg_password_confirm"
+                               name="reg_password_confirm" placeholder="Підтвердження Паролю">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg_email" class="sr-only">Емейл</label>
+                        <input type="email" ng-model="userRegisterForm.email" class="form-control" id="reg_email"
+                               name="reg_email" placeholder="Емейл">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_fullname" class="sr-only">Повне Ім'я</label>
+                        <input type="text" ng-model="userRegisterForm.fullName" class="form-control" id="reg_fullname"
+                               name="reg_fullname"
+                               placeholder="Повне Ім'я">
+                    </div>
+                </div>
+                <button type="submit" ng-click="register(userRegisterForm)" class="login-button"><i
+                        class="fa fa-chevron-right"></i></button>
+            </div>
+        </form>
+        <div ng-hide="!afterRegisterToken[0].qr">
+            <img ng-src="{{afterRegisterToken[0].qr}}" alt="QR">
+            <br>
+            *Secret Key: {{afterRegisterToken[0].secretKey}}<br>
+        </div>
+    </div>
+</div>

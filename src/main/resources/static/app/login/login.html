@@ -1,0 +1,37 @@
+<div class="text-center" style="padding:50px 0">
+    <div class="logo">автентифікація</div>
+    <div class="login-form-1">
+        <form id="login-form" class="text-left">
+            <div class="login-form-main-message"></div>
+            <div class="main-login-form">
+                <div class="login-group">
+                    <div class="form-group">
+                        <label for="lg_username" class="sr-only">Username</label>
+                        <input type="text" ng-model="user.login" class="form-control" id="lg_username"
+                               name="lg_username"
+                               placeholder="Логін">
+                    </div>
+                    <div class="form-group">
+                        <label for="lg_password" class="sr-only">Password</label>
+                        <input type="password" ng-model="user.password" class="form-control" id="lg_password"
+                               name="lg_password"
+                               placeholder="Пароль">
+                    </div>
+                    <div class="form-group">
+                        <label for="lg_verificationCode" class="sr-only">Password</label>
+                        <input type="text" ng-model="user.verificationCode" class="form-control"
+                               id="lg_verificationCode"
+                               name="lg_verificationCode"
+                               placeholder="PIN-код">
+                    </div>
+                </div>
+                <button type="submit" ng-click="send(user)" class="login-button">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </form>
+        <div class="etc-login-form">
+            <p>new user? <a ui-sref="register">create new account</a></p>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 # Spring Boot + Spring Security + Hibernate + Validation API + JWT + 2fa
+In resources/static execute command: bower install
 ## Example user: 
 
 Username: test
