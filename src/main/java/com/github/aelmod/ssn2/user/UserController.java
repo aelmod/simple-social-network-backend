@@ -2,6 +2,7 @@ package com.github.aelmod.ssn2.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.aelmod.ssn2.security.CurrentUser;
+import com.github.aelmod.ssn2.security.google2fa.User2faToken;
 import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public String registerUser(@RequestBody @Valid UserRegisterForm registerForm) {
+    public User2faToken registerUser(@RequestBody @Valid UserRegisterForm registerForm) {
         User registeredUser = registerForm.toUser();
         registeredUser.setSecret(Base32.random());
         return userService.save(registeredUser);
