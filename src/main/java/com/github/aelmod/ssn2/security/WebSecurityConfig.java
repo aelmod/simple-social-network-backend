@@ -24,15 +24,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.usernamePasswordAuthenticationProvider = usernamePasswordAuthenticationProvider;
     }
 
+    private static final String[] SWAGGER_WHITELIST = {
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
+
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web
                 .ignoring()
                 .antMatchers(HttpMethod.POST, "/api/login")
                 .antMatchers(HttpMethod.POST, "/api/users/register")
                 .antMatchers(HttpMethod.GET, "/api/countries/**")
                 .antMatchers(HttpMethod.GET, "/api/cities")
-                .antMatchers(HttpMethod.GET, "/api/static/pics/**");
+                .antMatchers(HttpMethod.GET, "/api/static/pics/**")
+                .antMatchers(SWAGGER_WHITELIST);
     }
 
     @Override

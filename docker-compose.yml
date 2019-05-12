@@ -1,0 +1,30 @@
+version: '3'
+services:
+  mysql:
+    build: docker/db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: origin
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: root
+    command: mysqld --bind-address=0.0.0.0
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    container_name: ssn
+    restart: always
+    working_dir: /ssn
+    volumes:
+      - .:/app
+    entrypoint: ./gradlew bootRun
+    ports:
+      - "8080:8080"
